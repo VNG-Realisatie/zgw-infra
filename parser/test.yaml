@@ -1,0 +1,35 @@
+ac:
+  tag: 1.0.0
+
+brc:
+  tag: 1.0.1.post0
+
+contactmomenten:
+  tag: 1.1.0
+
+drc:
+  tag: 1.2.0
+
+klanten:
+  tag: 1.0.1
+
+nrc:
+  tag: 1.0.0.post1
+
+tokens:
+  tag: 0.1.0
+
+verzoeken:
+  tag: 0.1.0
+
+vrl:
+  tag: 0.5.6
+
+zrc:
+  tag: 1.3.0
+
+ztc:
+  tag: 1.2.0
+
+tokenSeeder:
+  tag: 0.1.0
