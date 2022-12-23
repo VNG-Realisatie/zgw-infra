@@ -1,0 +1,30 @@
+config:
+  host: k8s-auth-local.test,localhost,zaken-auth.vng.cloud
+  ingressHost: k8s-auth-local.test
+
+database:
+  name: token-issuer
+
+job:
+  run: true
+
+replicas:
+  min: 1
+  max: 2
+
+cronjob:
+  run: true
+  # At 03:15 on day-of-month 1
+  expression: "15 3 1 * *"
+
+service:
+  name: token-issuer
+  port: 8000
+  images:
+    imageRepo: maykinmedia/zds-token-issuer
+    tag: '0.6.2'
+
+secret:
+  name: tokens-secret
+  sentry: SENTRY_DSN
+  key: SECRET_KEY

@@ -1,0 +1,28 @@
+{{ if .Values.job.run }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name:  {{ .Values.service.name }}-seeder
+  namespace: {{ .Values.global.namespace}}
+spec:
+  ttlSecondsAfterFinished: 120
+  template:
+    spec:
+      containers:
+      - name: seeder
+        image: bitnami/postgresql:latest
+        command: ["createdb"]
+        args: ["-h", "{{.Values.global.postgres.service.host }}", "-p", "{{.Values.global.postgres.service.port}}", "-U", "$(POSTGRES_USER)", {{ .Values.database.name }} ]
+        env:
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.global.postgres.secretName }}
+                key: {{ .Values.global.postgres.username_key }}
+          - name: PGPASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.global.postgres.secretName }}
+                key: {{ .Values.global.postgres.password_key }}
+      restartPolicy: Never
+  {{end}}

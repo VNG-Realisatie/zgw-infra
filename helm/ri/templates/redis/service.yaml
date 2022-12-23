@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name:  {{ .Values.global.redis.name }}
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    {{- include "ri.labels" . | nindent 4 }}
+spec:
+  selector:
+    {{- include "redis.selectorLabels" . | nindent 8 }}
+  ports:
+  - protocol: TCP
+    port: {{ .Values.global.redis.service.port  }}
+    targetPort: {{ .Values.global.redis.service.port }}

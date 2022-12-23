@@ -1,0 +1,27 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name:  {{ .Values.global.redis.name }}
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    {{- include "ri.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "redis.selectorLabels" . | nindent 8 }}
+  template:
+    metadata:
+      labels:
+        {{- include "redis.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: {{ .Values.global.redis.name }}
+        image: {{ .Values.redis.images.imageRepo}}:{{ .Values.redis.images.tag }}
+        resources:
+          requests:
+            memory: "100Mi"
+            cpu: "50m"
+          limits:
+            memory: "250Mi"
+            cpu: "200m"
