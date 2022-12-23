@@ -1,0 +1,31 @@
+config:
+  host: k8s-drc-local.test,localhost,documenten-api.vng.cloud
+  ingressHost: k8s-drc-local.test
+
+database:
+  name: drc
+
+job:
+  run: true
+
+replicas:
+  min: 1
+  max: 2
+
+cronjob:
+  run: true
+  # At 03:15 on day-of-month 1
+  expression: "15 3 1 * *"
+
+service:
+  name: drc
+  port: 8000
+  images:
+    imageRepo: vngr/gemma-drc
+    tag: '1.1.0'
+  minUploadSize: '4294967296'
+
+secret:
+  name: drc-secret
+  sentry: SENTRY_DSN
+  key: SECRET_KEY

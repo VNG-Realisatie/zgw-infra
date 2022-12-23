@@ -1,0 +1,76 @@
+{{ if .Values.cronjob.run }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name:  {{ .Values.service.name }}-cronjob
+  namespace: {{ .Values.global.namespace}}
+spec:
+  schedule: {{ .Values.cronjob.expression | quote }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          initContainers:
+            - name: cronjob-deletedb
+              image: bitnami/postgresql:latest
+              command: ["dropdb"]
+              args: ["-h", "{{.Values.global.postgres.service.host }}", "-p", "{{.Values.global.postgres.service.port}}", "-U", "$(POSTGRES_USER)", {{ .Values.database.name }} ]
+              env:
+                - name: POSTGRES_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .Values.global.postgres.secretName }}
+                      key: {{ .Values.global.postgres.username_key }}
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .Values.global.postgres.secretName }}
+                      key: {{ .Values.global.postgres.password_key }}
+            - name: cronjob-createdb
+              image: bitnami/postgresql:latest
+              command: ["createdb"]
+              args: ["-h", "{{.Values.global.postgres.service.host }}", "-p", "{{.Values.global.postgres.service.port}}", "-U", "$(POSTGRES_USER)", {{ .Values.database.name }} ]
+              env:
+                - name: POSTGRES_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .Values.global.postgres.secretName }}
+                      key: {{ .Values.global.postgres.username_key }}
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .Values.global.postgres.secretName }}
+                      key: {{ .Values.global.postgres.password_key }}
+          containers:
+            - name: {{ .Values.service.name }}-periodic
+              image: {{ .Values.service.images.imageRepo}}:{{ .Values.service.images.tag }}
+              imagePullPolicy: {{ .Values.global.config.pullPolicy }}
+              ports:
+                - containerPort: {{ .Values.service.port }}
+              env:
+                - name: DJANGO_SETTINGS_MODULE
+                  value: {{.Values.service.name}}.conf.docker
+                - name: ALLOWED_HOSTS
+                  value: {{ .Values.config.host }}
+                - name: DB_NAME
+                  value: {{ .Values.database.name }}
+                - name: DB_HOST
+                  value: {{ .Values.global.postgres.name }}
+                - name: DB_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .Values.global.postgres.secretName }}
+                      key: {{ .Values.global.postgres.username_key }}
+                - name: DB_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .Values.global.postgres.secretName }}
+                      key: {{ .Values.global.postgres.password_key }}
+                - name: {{ .Values.secret.key }}
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .Values.secret.name }}
+                      key: {{ .Values.secret.key }}
+              command: ['sh', '-c', "python3 /app/src/manage.py migrate"]
+          restartPolicy: Never
+{{end}}

@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ .Values.global.rabbitmq.name }}
+  namespace: {{ .Values.global.namespace}}
+  labels:
+    {{- include "ri.labels" . | nindent 4 }}
+spec:
+  selector:
+      app.kubernetes.io/name: {{ .Values.global.rabbitmq.name }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  ports:
+  - protocol: TCP
+    port: 5672
+    targetPort: 5672

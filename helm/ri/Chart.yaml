@@ -1,0 +1,46 @@
+apiVersion: v2
+appVersion: 0.1.0
+dependencies:
+- condition: services.ac.enabled
+  name: ac
+  version: 0.0.1-rc1
+- condition: services.brc.enabled
+  name: brc
+  version: 0.0.1-rc1
+- condition: services.contactmomenten.enabled
+  name: contactmomenten
+  version: 0.0.1-rc1
+- condition: services.drc.enabled
+  name: drc
+  version: 0.0.1-rc1
+- condition: services.klanten.enabled
+  name: klanten
+  version: 0.0.1-rc1
+- condition: services.nrc.enabled
+  name: nrc
+  version: 0.0.1-rc1
+- condition: services.token-issuer.enabled
+  name: token-issuer
+  version: 0.0.1-rc1
+- condition: services.verzoeken.enabled
+  name: verzoeken
+  version: 0.0.1-rc1
+- condition: services.vrl.enabled
+  name: vrl
+  version: 0.0.1-rc1
+- condition: services.zrc.enabled
+  name: zrc
+  version: 0.0.1-rc1
+- condition: services.ztc.enabled
+  name: ztc
+  version: 0.0.1-rc1
+description: Helm chart for referentie implementaties as part of API standards for
+  local government
+home: https://gitlab.com/commonground/ri/infra
+maintainers:
+- email: standaarden.ondersteuning@vng.nl
+  name: VNG Realisatie
+name: ri
+sources:
+- https://github.com/VNG-Realisatie/gemma-zaken
+version: 0.0.1-rc1

@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name:  {{ .Values.ingress.name }}
+  namespace: {{ .Values.global.namespace}}
+  annotations:
+    {{- if .Values.global.config.nginx }}
+    kubernetes.io/ingress.class: nginx
+    {{- end}}
+    {{- if .Values.global.config.certManager}}
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    {{- end}}
+  labels:
+    app.kubernetes.io/instance: zgw-{{ .Values.ingress.instance }}
+    app.kubernetes.io/name: zgw
+    {{- include "ri.labels" . | nindent 4 }}
+spec:
+  rules:
+    {{- range $key, $value := .Values.ingress.services }}
+    - host: {{ $value.host }}
+      http:
+        paths:
+        - pathType: Prefix
+          path: /
+          backend:
+            service:
+              name: {{ $value.name }}
+              port:
+                number: {{ $value.port }}
+    {{- end }}
+
+  tls:
+    {{- range $key, $value := .Values.ingress.services }}
+    - hosts:
+      - {{ $value.host }}
+      secretName: {{ $value.name }}-tls
+    {{- end }}
+
