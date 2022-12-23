@@ -11,6 +11,8 @@ def get_version():
     ).stdout.decode("utf-8")
     stripped = output.strip("\n")
     if stripped == "":
+        test = os.getenv("GITHUB_REF_NAME")
+        print(test)
         stripped = "0.0.1"
     print(stripped)
     return stripped
@@ -32,7 +34,6 @@ def parse_chart_version(version, file_path):
                 for dependency in chart[dependencies]:
                     dependency["version"] = version
             with open(file_path, "w") as write_path:
-                print(chart)
                 yaml.dump(chart, write_path, sort_keys=True)
         except yaml.YAMLError as exc:
             print(exc)
@@ -60,7 +61,6 @@ def set_versions(env, cwd, helm_path, version):
                             values = yaml.load(stream, Loader=yaml.FullLoader)
                             values["global"][image]["tag"] = tag
                             with open(root_values, "w") as write_path:
-                                print(values)
                                 yaml.dump(values, write_path, sort_keys=True)
                         except yaml.YAMLError as exc:
                             print(exc)
@@ -75,7 +75,6 @@ def set_versions(env, cwd, helm_path, version):
                         values = yaml.load(stream, Loader=yaml.FullLoader)
                         values["service"]["images"]["tag"] = tag
                         with open(values_path, "w") as write_path:
-                            print(values)
                             yaml.dump(values, write_path, sort_keys=True)
                     except yaml.YAMLError as exc:
                         print(exc)
@@ -86,7 +85,6 @@ def set_versions(env, cwd, helm_path, version):
                         chart["appVersion"] = tag
                         chart["version"] = version
                         with open(chart_path, "w") as write_path:
-                            print(values)
                             yaml.dump(chart, write_path, sort_keys=True)
                     except yaml.YAMLError as exc:
                         print(exc)

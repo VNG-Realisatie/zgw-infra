@@ -10,7 +10,6 @@ on:
 
 env:
   CHART_NAME: ri-zgw
-  IMAGE_TAG: 0.0.1
   ENV: production
 
 jobs:
@@ -30,9 +29,9 @@ jobs:
           echo ${{ secrets.GHCR_TOKEN }} | helm registry login ghcr.io -u $ --password-stdin
       - name: helm package
         run: |
-          helm package ./helm/ri --version $IMAGE_TAG
+          helm package ./helm/ri --version $GITHUB_REF_NAME
       - name: helm push
         if: ${{ github.event_name == 'push' }}
         run: |
           REPO_NAME=$(echo 'print("${{ github.repository_owner }}".lower())' | python3 -)
-          helm push $CHART_NAME-$IMAGE_TAG.tgz oci://ghcr.io/$REPO_NAME
+          helm push $CHART_NAME-$GITHUB_REF_NAME.tgz oci://ghcr.io/$REPO_NAME
