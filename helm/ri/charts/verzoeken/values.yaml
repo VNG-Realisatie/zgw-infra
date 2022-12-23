@@ -1,30 +1,23 @@
 config:
-  host: k8s-verzoeken-local.test,localhost,verzoeken-api.vng.cloud
+  host: k8s-verzoeken-local.test,localhost,verzoeken-api.vng.cloud,verzoeken
   ingressHost: k8s-verzoeken-local.test
-
+cronjob:
+  expression: 15 3 1 * *
+  run: true
 database:
   name: verzoeken
-
 job:
   run: true
-
 replicas:
-  min: 1
   max: 2
-
-cronjob:
-  run: true
-  # At 03:15 on day-of-month 1
-  expression: "15 3 1 * *"
-
-service:
-  name: verzoeken
-  port: 8000
-  images:
-    imageRepo: vngr/verzoeken-api
-    tag: latest
-
+  min: 1
 secret:
+  key: SECRET_KEY
   name: verzoeken-secret
   sentry: SENTRY_DSN
-  key: SECRET_KEY
+service:
+  images:
+    imageRepo: vngr/verzoeken-api
+    tag: 0.1.0
+  name: verzoeken
+  port: 8000

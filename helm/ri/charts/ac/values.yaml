@@ -1,31 +1,24 @@
 config:
-  host: k8s-ac-local.test,localhost,autorisaties-api.test.vng.cloud
-  ingressHost: k8s-ac-local.test
   branch: ''
-
+  host: k8s-ac-local.test,localhost,autorisaties-api.test.vng.cloud,ac
+  ingressHost: k8s-ac-local.test
+cronjob:
+  expression: 15 3 1 * *
+  run: true
 database:
   name: ac
-
 job:
   run: true
-
 replicas:
-  min: 1
   max: 2
-
-cronjob:
-  run: true
-  # At 03:15 on day-of-month 1
-  expression: "15 3 1 * *"
-
-service:
-  name: ac
-  port: 8000
-  images:
-    imageRepo: vngr/autorisaties-api
-    tag: latest
-
+  min: 1
 secret:
+  key: SECRET_KEY
   name: ac-secret
   sentry: SENTRY_DSN
-  key: SECRET_KEY
+service:
+  images:
+    imageRepo: vngr/autorisaties-api
+    tag: 1.0.0
+  name: ac
+  port: 8000

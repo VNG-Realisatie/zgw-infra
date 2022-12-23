@@ -18,6 +18,9 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       initContainers:
+        - name: wait-for-postgres
+          image: busybox:1.31
+          command: [ 'sh', '-c', 'echo -e "Checking for the availability of postgres deployment"; while ! nc -z postgres 5432; do sleep 1; printf "-"; done; echo -e "  >> POSTGRES has started";' ]
         - name: {{ .Values.service.name }}-init
           image: {{ .Values.service.images.imageRepo}}:{{ .Values.service.images.tag }}
           imagePullPolicy: {{ .Values.global.config.pullPolicy }}
@@ -48,6 +51,39 @@ spec:
                   name: {{ .Values.secret.name }}
                   key: {{ .Values.secret.key }}
           command: ['sh', '-c', "python3 /app/src/manage.py migrate"]
+        - name: {{ .Values.service.name }}-seeder
+          image: {{ .Values.global.tokenSeeder.imageRepo}}:{{ .Values.global.tokenSeeder.tag }}
+          command: ['sh', '-c', "python3 /app/main.py"]
+          env:
+            - name: DB_NAME
+              value: {{ .Values.database.name }}
+            - name: DB_HOST
+              value: {{ .Values.global.postgres.name }}
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.postgres.secretName }}
+                  key: {{ .Values.global.postgres.username_key }}
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.postgres.secretName }}
+                  key: {{ .Values.global.postgres.password_key }}
+            - name: TOKEN_ISSUER_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.tokenIssuer.secretName }}
+                  key: {{ .Values.global.tokenIssuer.secretKey }}
+            - name: TOKEN_ISSUER_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.tokenIssuer.secretName }}
+                  key: {{ .Values.global.tokenIssuer.identifierKey }}
+            - name: INTERNAL_API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.tokenIssuer.secretName }}
+                  key: {{ .Values.global.tokenSeeder.secretKey }}
       containers:
         - name: {{ .Values.service.name }}
           image: {{ .Values.service.images.imageRepo}}:{{ .Values.service.images.tag }}

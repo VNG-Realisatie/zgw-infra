@@ -1,30 +1,23 @@
 config:
-  host: k8s-zrc-local.test,localhost,zaken-api.vng.cloud
+  host: k8s-zrc-local.test,localhost,zaken-api.vng.cloud,zrc
   ingressHost: k8s-zrc-local.test
-
+cronjob:
+  expression: 15 3 1 * *
+  run: true
 database:
   name: zrc
-
 job:
   run: true
-
 replicas:
-  min: 1
   max: 2
-
-cronjob:
-  run: true
-  # At 03:15 on day-of-month 1
-  expression: "15 3 1 * *"
-
-service:
-  name: zrc
-  port: 8000
-  images:
-    imageRepo: vngr/gemma-zrc
-    tag: 1.3.0-rc5
-
+  min: 1
 secret:
+  key: SECRET_KEY
   name: zrc-secret
   sentry: SENTRY_DSN
-  key: SECRET_KEY
+service:
+  images:
+    imageRepo: vngr/gemma-zrc
+    tag: 1.3.0
+  name: zrc
+  port: 8000

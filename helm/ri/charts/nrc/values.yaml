@@ -1,30 +1,23 @@
 config:
-  host: k8s-nrc-local.test,localhost,zaken-api.vng.cloud
+  host: k8s-nrc-local.test,localhost,zaken-api.vng.cloud,nrc
   ingressHost: k8s-nrc-local.test
-
+cronjob:
+  expression: 15 3 1 * *
+  run: true
 database:
   name: nrc
-
 job:
   run: true
-
 replicas:
-  min: 1
   max: 2
-
-cronjob:
-  run: true
-  # At 03:15 on day-of-month 1
-  expression: "15 3 1 * *"
-
+  min: 1
+secret:
+  key: SECRET_KEY
+  name: nrc-secret
+  sentry: SENTRY_DSN
 service:
-  name: nrc
-  port: 8000
   images:
     imageRepo: vngr/notificaties-api
     tag: 1.0.0.post1
-
-secret:
-  name: nrc-secret
-  sentry: SENTRY_DSN
-  key: SECRET_KEY
+  name: nrc
+  port: 8000

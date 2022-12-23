@@ -18,6 +18,9 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       initContainers:
+        - name: wait-for-postgres
+          image: busybox:1.31
+          command: [ 'sh', '-c', 'echo -e "Checking for the availability of postgres deployment"; while ! nc -z postgres 5432; do sleep 1; printf "-"; done; echo -e "  >> POSTGRES has started";' ]
         - name: {{ .Values.service.name }}-init
           image: {{ .Values.service.images.imageRepo}}:{{ .Values.service.images.tag }}
           imagePullPolicy: {{ .Values.global.config.pullPolicy }}
