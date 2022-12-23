@@ -40,7 +40,7 @@ home: https://gitlab.com/commonground/ri/infra
 maintainers:
 - email: standaarden.ondersteuning@vng.nl
   name: VNG Realisatie
-name: ri
+name: ri-zgw
 sources:
 - https://github.com/VNG-Realisatie/gemma-zaken
 version: 0.0.1
