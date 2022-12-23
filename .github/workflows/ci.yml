@@ -10,7 +10,7 @@ on:
 
 env:
   CHART_NAME: ri-zgw
-  IMAGE_TAG: 0.1.0
+  IMAGE_TAG: 0.0.1
   ENV: production
 
 jobs:

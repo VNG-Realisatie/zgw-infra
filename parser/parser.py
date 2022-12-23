@@ -99,6 +99,8 @@ if __name__ == "__main__":
     cwd = os.getcwd()
     if cwd.split("/")[-1] != "parser":
         cwd = os.path.join(cwd, "parser")
+
+    print(cwd)
     tagged_version = get_version()
     helm_path = get_helm_path(cwd)
     set_versions(env=env, cwd=cwd, helm_path=helm_path, version=tagged_version)
