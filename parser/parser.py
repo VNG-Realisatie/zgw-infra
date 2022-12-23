@@ -12,6 +12,8 @@ def get_version():
     stripped = output.strip("\n")
     if stripped == "":
         branch = os.getenv("GITHUB_REF_NAME")
+        if branch.startswith("v"):
+            branch = branch.split("v")[1]
         stripped = branch
     print(stripped)
     return stripped
