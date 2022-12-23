@@ -39,10 +39,7 @@ def parse_chart_version(version, file_path):
 
 def push_helm_chart_to_museum(package_name):
     """
-    curl --request POST \
-     --form 'chart=@mychart-0.1.0.tgz' \
-     --user <username>:<access_token> \
-     https://gitlab.example.com/api/v4/projects/<project_id>/packages/helm/api/<channel>/charts
+    helm push <chart-name>-${CHART_VERSION}.tgz oci://ghcr.io/<GITHUB-USERNAME>
     """
     print(package_name)
     return

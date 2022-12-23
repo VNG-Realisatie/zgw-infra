@@ -1,0 +1,32 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - 'main'
+      - 'feature/add-cicd'
+    tags:
+      - "v*.*.*"
+
+env:
+  CHART_NAME: ri-zgw
+  IMAGE_TAG: 0.1.0
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout
+      - name: echo
+        run: |
+          echo '${{ github.repository_owner }}'
+      - name: helm login
+        run: |
+          echo ${{ secrets.GHCR_TOKEN }} | helm registry login ghcr.io -u $ --password-stdin
+      - name: helm package
+        run: |
+          helm package ./helm/ri --version $IMAGE_TAG
+      - name: helm push
+        if: ${{ github.event_name == 'push' }}
+        run: |
+          helm push ./helm/ri/$CHART_NAME-$IMAGE_TAG.tgz oci://ghcr.io/${{ github.repository_owner }}
