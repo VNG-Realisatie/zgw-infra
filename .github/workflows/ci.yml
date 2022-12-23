@@ -26,11 +26,11 @@ jobs:
           echo ${{ secrets.GHCR_TOKEN }} | helm registry login ghcr.io -u $ --password-stdin
       - name: helm package
         run: |
-          VERSION = echo "$GITHUB_REF_NAME" | sed 's/v//'
+          VERSION=$(echo "$GITHUB_REF_NAME" | sed 's/v//')
           helm package ./helm/ri --version $VERSION
       - name: helm push
         if: ${{ github.event_name == 'push' }}
         run: |
           REPO_NAME=$(echo 'print("${{ github.repository_owner }}".lower())' | python3 -)
-          VERSION = echo "$GITHUB_REF_NAME" | sed 's/v//'
+          VERSION=$(echo "$GITHUB_REF_NAME" | sed 's/v//')
           helm push $CHART_NAME-$VERSION.tgz oci://ghcr.io/$REPO_NAME

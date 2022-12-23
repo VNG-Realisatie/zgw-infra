@@ -12,9 +12,9 @@ def get_version():
     stripped = output.strip("\n")
     if stripped == "":
         branch = os.getenv("GITHUB_REF_NAME")
-        if branch.startswith("v"):
-            branch = branch.split("v")[1]
         stripped = branch
+    if stripped.startswith("v"):
+        stripped = stripped.split("v")[1]
     print(stripped)
     return stripped
 
