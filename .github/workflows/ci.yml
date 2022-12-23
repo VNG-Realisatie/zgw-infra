@@ -11,16 +11,18 @@ on:
 env:
   CHART_NAME: ri-zgw
   IMAGE_TAG: 0.1.0
+  ENV: production
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: echo
-        run: |
-          echo '${{ github.repository_owner }}'
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 'pypy3.9'
+      - run: pip install -r parser/requirements.txt && python parser/parser.py
+
       - name: helm login
         run: |
           echo ${{ secrets.GHCR_TOKEN }} | helm registry login ghcr.io -u $ --password-stdin
@@ -30,4 +32,5 @@ jobs:
       - name: helm push
         if: ${{ github.event_name == 'push' }}
         run: |
-          helm push $CHART_NAME-$IMAGE_TAG.tgz oci://ghcr.io/${{ github.repository_owner }}
+          REPO_NAME=$(echo 'print("abc".upper())' | python3.9 -)
+          helm push $CHART_NAME-$IMAGE_TAG.tgz oci://ghcr.io/$REPO_NAME

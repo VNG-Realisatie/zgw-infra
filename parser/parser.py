@@ -36,24 +36,6 @@ def parse_chart_version(version, file_path):
             print(exc)
     return
 
-
-def push_helm_chart_to_museum(package_name):
-    """
-    helm push <chart-name>-${CHART_VERSION}.tgz oci://ghcr.io/<GITHUB-USERNAME>
-    """
-    print(package_name)
-    return
-
-
-def create_helm_package(path):
-    """Package parsed helm chart in /tmp/ to be uploaded"""
-    output = subprocess.run(
-        ["helm", "package", path, "--destination=/tmp/"], capture_output=True
-    ).stdout.decode("utf-8")
-    print(output)
-    return
-
-
 def set_versions(env, cwd, helm_path, version):
     chart_name = "Chart.yaml"
     values_name = "values.yaml"
@@ -120,6 +102,3 @@ if __name__ == "__main__":
     tagged_version = get_version()
     helm_path = get_helm_path(cwd)
     set_versions(env=env, cwd=cwd, helm_path=helm_path, version=tagged_version)
-    create_helm_package(helm_path)
-    helm_package_name = "ri-%s.tgz" % tagged_version
-    push_helm_chart_to_museum(helm_package_name)
