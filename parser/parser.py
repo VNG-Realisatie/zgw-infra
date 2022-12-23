@@ -11,9 +11,8 @@ def get_version():
     ).stdout.decode("utf-8")
     stripped = output.strip("\n")
     if stripped == "":
-        test = os.getenv("GITHUB_REF_NAME")
-        print(test)
-        stripped = "0.0.1"
+        branch = os.getenv("GITHUB_REF_NAME")
+        stripped = branch
     print(stripped)
     return stripped
 
@@ -100,7 +99,6 @@ if __name__ == "__main__":
     if cwd.split("/")[-1] != "parser":
         cwd = os.path.join(cwd, "parser")
 
-    print(cwd)
     tagged_version = get_version()
     helm_path = get_helm_path(cwd)
     set_versions(env=env, cwd=cwd, helm_path=helm_path, version=tagged_version)
