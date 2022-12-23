@@ -27,5 +27,5 @@ jobs:
       - name: helm push
         if: ${{ github.event_name == 'push' }}
         run: |
-          REPO_NAME=$(echo 'print("abc".upper())' | python3 -)
+          REPO_NAME=$(echo 'print(${{ github.repository_owner }}.lower())' | python3 -)
           helm push $CHART_NAME-$IMAGE_TAG.tgz oci://ghcr.io/$REPO_NAME
