@@ -10,6 +10,8 @@ def get_version():
         ["git", "describe", "--tags", "--abbrev=0"], capture_output=True
     ).stdout.decode("utf-8")
     stripped = output.strip("\n")
+    if stripped == "":
+        stripped = "0.0.1"
     print(stripped)
     return stripped
 
