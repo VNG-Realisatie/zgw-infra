@@ -1,130 +1,125 @@
 global:
+  celery:
+    name: celery
+    secretName: celery
   config:
-    environment: docker-desktop
-    enableTLS: true
     certManager: true
+    enableTLS: true
+    environment: docker-desktop
+    kube: 1.25.2
     nginx: true
     pullPolicy: Always
-    kube: 1.25.2
-
   name: ri
   namespace: vng
-
   postgres:
     name: postgres
-    username_key: username
-    password_key: password
-    username: postgres
     password: CHANGE_ME
+    password_key: password
     secretName: postgres
     service:
       host: postgres
       port: 5432
-
-  redis:
-    name: redis
-    database: 7
-    host: redis-test
-    service:
-      port: 6379
-
+    username: postgres
+    username_key: username
   rabbitmq:
+    default_password: CHANGE_ME
+    default_user: nrc_root
     name: rabbitmq
     port: 5672
     secretName: rabbitmq
-    default_user: nrc_root
-    default_password: CHANGE_ME
-
-  celery:
-    name: celery
-    secretName: celery
-
+  redis:
+    database: 7
+    host: redis-test
+    name: redis
+    service:
+      port: 6379
   secret_keys:
-    zrc: 'CHANGE_ME'
-    drc: 'CHANGE_ME'
-    ztc: 'CHANGE_ME'
-    brc: 'CHANGE_ME'
-    nrc: 'CHANGE_ME'
-    ac: 'CHANGE_ME'
-    tokens: 'CHANGE_ME'
-    vrl: 'CHANGE_ME'
-    deploy: 'CHANGE_ME'
-    kic: 'CHANGE_ME'
-    klanten: 'CHANGE_ME'
-    contactmomenten: 'CHANGE_ME'
-    verzoeken: 'CHANGE_ME'
-
+    ac: CHANGE_ME
+    brc: CHANGE_ME
+    contactmomenten: CHANGE_ME
+    deploy: CHANGE_ME
+    drc: CHANGE_ME
+    kic: CHANGE_ME
+    klanten: CHANGE_ME
+    nrc: CHANGE_ME
+    tokens: CHANGE_ME
+    verzoeken: CHANGE_ME
+    vrl: CHANGE_ME
+    zrc: CHANGE_ME
+    ztc: CHANGE_ME
   sentry_dsn:
-    zrc: 'CHANGE_ME'
-    drc: 'CHANGE_ME'
-    ztc: 'CHANGE_ME'
-    brc: 'CHANGE_ME'
-    nrc: 'CHANGE_ME'
-    ac: 'CHANGE_ME'
-    tokens: 'CHANGE_ME'
-    vrl: 'CHANGE_ME'
-    deploy: 'CHANGE_ME'
-    kic: 'CHANGE_ME'
-    klanten: 'CHANGE_ME'
-    contactmomenten: 'CHANGE_ME'
-    verzoeken: 'CHANGE_ME'
-
+    ac: CHANGE_ME
+    brc: CHANGE_ME
+    contactmomenten: CHANGE_ME
+    deploy: CHANGE_ME
+    drc: CHANGE_ME
+    kic: CHANGE_ME
+    klanten: CHANGE_ME
+    nrc: CHANGE_ME
+    tokens: CHANGE_ME
+    verzoeken: CHANGE_ME
+    vrl: CHANGE_ME
+    zrc: CHANGE_ME
+    ztc: CHANGE_ME
+  tokenIssuer:
+    identifier: token-issuer-seeded
+    identifierKey: identifierTokens
+    secret: CHANGE_ME
+    secretKey: secretTokens
+    secretName: token-seeder
+  tokenSeeder:
+    imageRepo: token-seeder
+    secret: CHANGE_ME
+    secretKey: internalToken
+    tag: 0.1.0
+ingress:
+  instance: zgw-stable
+  name: ref-implementatie
+  services:
+  - host: k8s-zrc-local.test
+    name: zrc
+    port: 8000
+  - host: documenten-api.vng.cloud
+    name: drc
+    port: 8000
+  - host: catalogi-api.vng.cloud
+    name: ztc
+    port: 8000
+  - host: autorisaties-api.vng.cloud
+    name: ac
+    port: 8000
+  - host: besluiten-api.vng.cloud
+    name: brc
+    port: 8000
+  - host: k8s-nrc-local.test
+    name: nrc
+    port: 8000
+  - host: klanten-api.vng.cloud
+    name: klanten
+    port: 8000
+  - host: contactmomenten-api.vng.cloud
+    name: contactmomenten
+    port: 8000
+  - host: verzoeken-api.vng.cloud
+    name: verzoeken
+    port: 8000
+  - host: referentielijsten-api.vng.cloud
+    name: vrl
+    port: 8000
+  - host: zaakgerichtwerken.vng.cloud
+    name: docs
+    port: 80
+  - host: zaken-auth.vng.cloud
+    name: token-issuer
+    port: 8000
 postgres:
   images:
-      imageRepo: mdillon/postgis
-      tag: latest
-
+    imageRepo: mdillon/postgis
+    tag: latest
 redis:
   images:
-      imageRepo: redis
-      tag: 5-alpine
-
-ingress:
-  name: ref-implementatie
-  instance: zgw-stable
-  services:
-    # Official APIs
-
-    - host: k8s-zrc-local.test
-      name: zrc
-      port: 8000
-    - host: documenten-api.vng.cloud
-      name: drc
-      port: 8000
-    - host: catalogi-api.vng.cloud
-      name: ztc
-      port: 8000
-    - host: autorisaties-api.vng.cloud
-      name: ac
-      port: 8000
-    - host: besluiten-api.vng.cloud
-      name: brc
-      port: 8000
-    - host: k8s-nrc-local.test
-      name: nrc
-      port: 8000
-    - host: klanten-api.vng.cloud
-      name: klanten
-      port: 8000
-    - host: contactmomenten-api.vng.cloud
-      name: contactmomenten
-      port: 8000
-    - host: verzoeken-api.vng.cloud
-      name: verzoeken
-      port: 8000
-
-    # Unofficial APIs
-    - host: referentielijsten-api.vng.cloud
-      name: vrl
-      port: 8000
-
-    - host: zaakgerichtwerken.vng.cloud
-      name: docs
-      port: 80
-    - host: zaken-auth.vng.cloud
-      name: token-issuer
-      port: 8000
-
+    imageRepo: redis
+    tag: 5-alpine
 services:
   ac:
     enabled: true
