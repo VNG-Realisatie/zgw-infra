@@ -24,6 +24,9 @@ jobs:
       - name: helm login
         run: |
           echo ${{ secrets.GHCR_TOKEN }} | helm registry login ghcr.io -u $ --password-stdin
+      - name: helm lint
+        run: |
+          helm lint ./helm/ri
       - name: helm package
         run: |
           VERSION=$(echo "$GITHUB_REF_NAME" | sed 's/v//')

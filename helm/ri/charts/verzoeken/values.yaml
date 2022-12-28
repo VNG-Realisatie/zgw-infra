@@ -1,13 +1,9 @@
 config:
-  host: k8s-verzoeken-local.test,localhost,verzoeken-api.vng.cloud,verzoeken
-  ingressHost: k8s-verzoeken-local.test
+  host: k8s-verzoeken-local.test,localhost,verzoeken
 cronjob:
   expression: 15 3 1 * *
-  run: true
 database:
   name: verzoeken
-job:
-  run: true
 replicas:
   max: 2
   min: 1

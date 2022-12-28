@@ -1,4 +1,4 @@
-{{ if .Values.cronjob.run }}
+{{ if .Values.global.config.createCronJobs }}
 apiVersion: batch/v1
 kind: CronJob
 metadata:

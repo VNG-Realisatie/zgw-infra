@@ -33,6 +33,8 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.global.tokenIssuer.secretName }}
                   key: {{ .Values.global.tokenIssuer.identifierKey }}
+            - name: ALLOWED_HOSTS
+              value: {{ .Values.config.host }}
             - name: ENV
               value: {{ .Values.config.env }}
             - name: PORT
@@ -47,3 +49,25 @@ spec:
             limits:
               memory: "200Mi"
               cpu: "100m"
+          readinessProbe:
+            httpGet:
+              scheme: HTTP
+              httpHeaders:
+                - name: Host
+                  value: localhost
+              path: /api/v1/status/
+              port: {{ .Values.service.port }}
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            failureThreshold: 6
+          livenessProbe:
+            httpGet:
+              scheme: HTTP
+              httpHeaders:
+                - name: Host
+                  value: localhost
+              path: /api/v1/status/
+              port: {{ .Values.service.port }}
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            failureThreshold: 5

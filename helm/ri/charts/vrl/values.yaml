@@ -1,13 +1,10 @@
 config:
-  host: k8s-vrl-local.test,localhost,zaken-api.vng.cloud,vrl
+  host: k8s-vrl-local.test,localhost,vrl
   ingressHost: k8s-vrl-local.test
 cronjob:
   expression: 15 3 1 * *
-  run: true
 database:
   name: vrl
-job:
-  run: true
 replicas:
   max: 2
   min: 1

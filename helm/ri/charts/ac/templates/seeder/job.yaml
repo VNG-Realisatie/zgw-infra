@@ -1,4 +1,4 @@
-{{ if .Values.job.run }}
+{{ if .Values.global.config.createJobs }}
 apiVersion: batch/v1
 kind: Job
 metadata:

@@ -1,0 +1,16 @@
+config:
+  env: kubernetes
+  host: k8s-tokens-local.test,localhost,tokens
+database:
+  name: token-issuer
+replicas:
+  max: 2
+  min: 1
+secret:
+  name: tokens-secret
+service:
+  images:
+    imageRepo: ghcr.io/vng-realisatie/token-issuer
+    tag: 0.0.1
+  name: token-issuer
+  port: 8000

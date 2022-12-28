@@ -1,14 +1,10 @@
 config:
   branch: ''
-  host: k8s-ac-local.test,localhost,autorisaties-api.test.vng.cloud,ac
-  ingressHost: k8s-ac-local.test
+  host: k8s-ac-local.test,localhost,ac
 cronjob:
   expression: 15 3 1 * *
-  run: true
 database:
   name: ac
-job:
-  run: true
 replicas:
   max: 2
   min: 1

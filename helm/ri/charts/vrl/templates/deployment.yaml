@@ -96,8 +96,8 @@ spec:
               httpHeaders:
                 - name: Host
                   value: localhost
-            initialDelaySeconds: 15
-            periodSeconds: 30
+            initialDelaySeconds: 10
+            periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /
