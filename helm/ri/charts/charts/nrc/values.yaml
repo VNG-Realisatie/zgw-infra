@@ -1,0 +1,23 @@
+config:
+  host: k8s-nrc-local.test,localhost,zaken-api.vng.cloud,nrc
+  ingressHost: k8s-nrc-local.test
+cronjob:
+  expression: 15 3 1 * *
+  run: true
+database:
+  name: nrc
+job:
+  run: true
+replicas:
+  max: 2
+  min: 1
+secret:
+  key: SECRET_KEY
+  name: nrc-secret
+  sentry: SENTRY_DSN
+service:
+  images:
+    imageRepo: vngr/notificaties-api
+    tag: 1.0.0.post1
+  name: nrc
+  port: 8000

@@ -1,0 +1,23 @@
+config:
+  host: k8s-brc-local.test,localhost,besluiten-api.vng.cloud,brc
+  ingressHost: k8s-brc-local.test
+cronjob:
+  expression: 15 3 1 * *
+  run: true
+database:
+  name: brc
+job:
+  run: true
+replicas:
+  max: 2
+  min: 1
+secret:
+  key: SECRET_KEY
+  name: brc-secret
+  sentry: SENTRY_DSN
+service:
+  images:
+    imageRepo: vngr/gemma-brc
+    tag: 1.0.1.post0
+  name: brc
+  port: 8000

@@ -1,0 +1,23 @@
+config:
+  host: k8s-klanten-local.test,localhost,klanten-api.vng.cloud,klanten
+  ingressHost: k8s-klanten-local.test
+cronjob:
+  expression: 15 3 1 * *
+  run: true
+database:
+  name: klanten
+job:
+  run: true
+replicas:
+  max: 2
+  min: 1
+secret:
+  key: SECRET_KEY
+  name: klanten-secret
+  sentry: SENTRY_DSN
+service:
+  images:
+    imageRepo: vngr/klanten-api
+    tag: 1.0.1
+  name: klanten
+  port: 8000

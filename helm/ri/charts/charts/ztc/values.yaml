@@ -1,0 +1,23 @@
+config:
+  host: k8s-ztc-local.test,localhost,catalogi-api.vng.cloud,ztc
+  ingressHost: k8s-ztc-local.test
+cronjob:
+  expression: 15 3 1 * *
+  run: true
+database:
+  name: ztc
+job:
+  run: true
+replicas:
+  max: 2
+  min: 1
+secret:
+  key: SECRET_KEY
+  name: ztc-secret
+  sentry: SENTRY_DSN
+service:
+  images:
+    imageRepo: vngr/gemma-ztc
+    tag: 1.2.0
+  name: ztc
+  port: 8000
