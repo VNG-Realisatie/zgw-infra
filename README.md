@@ -119,6 +119,25 @@ Al deze commando's zijn ook teurg te vinden in de `./helm/ri/Makefile`
 
 WIP: voor nu wordt de helm chart niet in een productie (like) omgeving uitgerold.
 
+### CICD
+
+Wanneer er een release wordt gemaakt van `zgw-infra` repo wordt er automatisch een nieuwe helm chart gebouwd en opgeslagen in GHCR als `OCI`.
+
+Voor meer details zie ook [GHCR](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry):
+
+```shell
+.github/workflows/ci.yml
+```
+
+### pull
+
+Images gemaakt tijdens het cicd proces kunnen gepulled worden als `OCI`. De version kan weggelaten worden voor een latest variant.
+
+```shell
+helm pull oci://ghcr.io/vng-realisatie/ri-zgw --version 0.0.6
+```
+
+Hiermee wordt de productie versie van de helm chart lokaal neergezet. LET OP hierbij zit uiteraard geen parser!
 ## Ingress
 
 Om lokaal je ingress in te stellen moeten de dns entries uit de `env.yaml` ook toegevoegd worden aan je `/etc/hosts` afhankelijk van je kubernetes implementatie.
