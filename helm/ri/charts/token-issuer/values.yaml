@@ -11,6 +11,6 @@ secret:
 service:
   images:
     imageRepo: ghcr.io/vng-realisatie/token-issuer
-    tag: 0.0.1
+    tag: 0.0.2
   name: token-issuer
   port: 8000

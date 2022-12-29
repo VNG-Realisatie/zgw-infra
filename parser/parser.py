@@ -68,6 +68,8 @@ def set_versions(env, cwd, helm_path, version):
     chart_name = "Chart.yaml"
     values_name = "values.yaml"
     sub_chart = "charts"
+    fixed_prod_kube_version = "1.23.8"
+    dummy_sentry_dsn = "https://public@sentry.example.com/1"
 
     root_chart = os.path.join(helm_path, chart_name)
     root_values = os.path.join(helm_path, values_name)
@@ -81,21 +83,6 @@ def set_versions(env, cwd, helm_path, version):
             for config in configs:
 
                 if config == "global":
-                    if env == "local":
-                        output = subprocess.run(
-                            ["kubectl", "config", "current-context"],
-                            capture_output=True,
-                        ).stdout.decode("utf-8")
-                        kube_context = output.strip("\n")
-
-                        short_kube = subprocess.run(
-                            ["kubectl", "version", "--short", "-o", "json"],
-                            capture_output=True,
-                        ).stdout.decode("utf-8")
-
-                        json_version = json.loads(short_kube)
-                        kube_version = json_version["serverVersion"]["gitVersion"]
-
                     with open(root_values, "r") as stream:
                         try:
                             values = yaml.load(stream, Loader=yaml.FullLoader)
@@ -112,6 +99,20 @@ def set_versions(env, cwd, helm_path, version):
                                                 ] = password
 
                             if env == "local":
+                                output = subprocess.run(
+                                    ["kubectl", "config", "current-context"],
+                                    capture_output=True,
+                                ).stdout.decode("utf-8")
+                                kube_context = output.strip("\n")
+
+                                short_kube = subprocess.run(
+                                    ["kubectl", "version", "--short", "-o", "json"],
+                                    capture_output=True,
+                                ).stdout.decode("utf-8")
+
+                                json_version = json.loads(short_kube)
+                                kube_version = json_version["serverVersion"]["gitVersion"]
+
                                 values["global"]["config"]["environment"] = kube_context
                                 values["global"]["config"]["kube"] = kube_version
 
@@ -120,8 +121,10 @@ def set_versions(env, cwd, helm_path, version):
                                     values["global"]["secret_keys"][api] = random_key
 
                                 for api in values["global"]["sentry_dsn"]:
-                                    values["global"]["sentry_dsn"][api] = "https://public@sentry.example.com/1"
-
+                                    values["global"]["sentry_dsn"][api] = dummy_sentry_dsn
+                            else:
+                                values["global"]["config"]["kube"] = fixed_prod_kube_version
+                                values["global"]["config"]["environment"] = env
                             with open(root_values, "w") as write_path:
                                 yaml.dump(values, write_path, sort_keys=True)
                         except yaml.YAMLError as exc:

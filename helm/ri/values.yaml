@@ -16,7 +16,7 @@ global:
   namespace: vng
   postgres:
     name: postgres
-    password: evdbEHe1BFxrfGXUlLKH37Br
+    password: FSpKyVPr8inQspTYGSItEj9J
     password_key: password
     secretName: postgres
     service:
@@ -25,7 +25,7 @@ global:
     username: postgres
     username_key: username
   rabbitmq:
-    default_password: dTV3v7uXpw7TUaPDNBSy2AB0
+    default_password: 05bz2NpWWe9mbChRoTXQQc08
     default_user: nrc_root
     name: rabbitmq
     port: 5672
@@ -37,18 +37,18 @@ global:
     service:
       port: 6379
   secret_keys:
-    ac: '@u30h)hd@3%2zp!l2b1jqv_9oj95c322ttn+j8tip6a)$e@1ui'
-    brc: f0)5mb4vzqlsl)zcmz0)=_fqabw&r^(=^)cstodr4c00=dp$ih
-    contactmomenten: '#1@jirz=vb977mg%0^)z5e%xfmsagdlkjxtkjowyn+77^c5vm8'
-    deploy: gtv5j$m@9+_mi9+$nyyr38wn3ve7k%2fb7ew(0y=_v159wa=44
-    drc: gq8fzak^_knj*ixszazq58c0&k_ay*(#1hlmow-#mo1gb)&7va
-    kic: gav4w_6!=(a3q&z^fpf42r#y79+=&z+7dj(py0@pazcx3+93o_
-    klanten: k1*xbv2il0bsyh@l%2c_kl-8jpa7g0o268g29nn5yb^8+y_lh^
-    nrc: =qk7w_ku$vb0%#=qetxdl2+0vct9)e-3$bf0$e56=wf@jk*^fp
-    verzoeken: )4+=r2+-b2lb%sn12z)0#l@p&6)!_e2tmgao=n&x=6$*a7dmdn
-    vrl: 22zr+if)++zp0nru%mm^gyu1lvzw(_+p=xa%85i-!yh5go65hw
-    zrc: p807_cu-8)rj39t%v4u#1w+qv9c@j6coc1m+sbdob-2+7p+)q5
-    ztc: msm9(@x&lsc$pm)c&x*c$b%*@v8u6h%ur9mr)g_x51i*fi@jpw
+    ac: e62_8$*aeko$b7uzoz+wp6hd=(okc0u*4%$&4vg-=*b0^i!h$6
+    brc: 5iz7t_s5z5o=rarahu!(_#bmkdohv()kx!h#!cjeov0cex1($2
+    contactmomenten: wmt=_yp0l_8uyuw8h3z4v=otf9#yd5^yl=50#=&xevch%bsh3z
+    deploy: ba-g#527bb)0puq09jm9)_j8j&g0z1tyr11q$qe_v0d724=290
+    drc: c7*5t3u+ai6h1h+n=wa50(x+cr$_%kdta)e=ltipd2*_f0_gov
+    kic: -dy=ncox(j912r#@8_ue@)c_4o&y-((tft&h_r-edegp)k6*+^
+    klanten: o7belif19w@#lxo#_za(ai!w)5^t5&oo7)j4k!0)3kmvh^7__7
+    nrc: (_d+ca7bf7hsxil=f8%0-rzc2o9tl_3n*07=+ggq&!2fq828y7
+    verzoeken: g1=s4*(58x0(uuo9txr=(w@^q$4=ehvy^$rq5$4rny!=wq**^5
+    vrl: -u%=q8v&%%x3z0b_al4xx+=$=tv0bb6&0i*%8@4st&!rp76vw&
+    zrc: (+45ka%v$$72)0!k6uclbx!#87hfz-xfhc=+dv(1x-#@pmxc6+
+    ztc: m9rx+r-zqq&@bwhz3!o=g=o&=6ru=%3od6@2#+j9kvx&7j#)a*
   sentry_dsn:
     ac: https://public@sentry.example.com/1
     brc: https://public@sentry.example.com/1
@@ -65,12 +65,12 @@ global:
   tokenIssuer:
     identifier: token-issuer-seeded
     identifierKey: identifierTokens
-    secret: TNLyNH5c8lBAbhvRNGowFVKb
+    secret: DOVg9ZrWSmONCvf4jYoxeGoB
     secretKey: secretTokens
     secretName: token-seeder
   tokenSeeder:
     imageRepo: ghcr.io/vng-realisatie/token-seeder
-    secret: eBwN0PBg2GXSQhz7w46FIJNM
+    secret: fqzY6ahZNWSt9QxrhMB1rVVj
     secretKey: internalToken
     tag: 0.0.2
 ingress:

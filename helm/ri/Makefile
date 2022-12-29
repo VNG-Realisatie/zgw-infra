@@ -1,20 +1,24 @@
 NGINX_VERSION:=4.0.19
 NGINX_NAMESPACE:=nginx-ingress
+HELM_CHART_NAME=ri
 
-install_with_overwrite:
-	helm install ri -f values-secret-overwrite.yaml .
+helm_lint:
+	helm lint .
 
 helm_dry_run:
-	helm install ri -f values-secret-overwrite.yaml --dry-run .
+	helm install ${HELM_CHART_NAME} --dry-run .
 
 helm_dry_run_output:
-	helm install ri -f values-secret-overwrite.yaml --dry-run . > test.yaml
+	helm install ${HELM_CHART_NAME} --dry-run . > test.yaml
 
-gpg_encode:
-	gpg -c values-secret-overwrite.yaml
+helm_install:
+	helm install ${HELM_CHART_NAME} .
 
-gpg_decode:
-	gpg -d values-secret-overwrite.yaml.gpg
+helm_upgrade:
+	helm upgrade --install ${HELM_CHART_NAME} --set global.config.createJobs=false .
+
+helm_delete:
+	helm delete ${HELM_CHART_NAME}
 
 nginx_install:
 	kubectl create namespace ${NGINX_NAMESPACE} --dry-run=client -o yaml | kubectl apply -f -
@@ -29,6 +33,3 @@ cert_manager_install:
 	  --create-namespace \
 	  --version v1.10.0 \
 	  --set installCRDs=true
-
-create_local_dns_entries:
-	echo "not yet implemented"
