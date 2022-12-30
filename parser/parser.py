@@ -28,6 +28,8 @@ def get_version():
         stripped = branch
     if stripped.startswith("v"):
         stripped = stripped.split("v")[1]
+    if stripped == "":
+        stripped = "0.0.1-local"
     print(stripped)
     return stripped
 
