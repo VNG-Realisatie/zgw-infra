@@ -1,6 +1,0 @@
-apiVersion: v2
-appVersion: 1.2.0
-description: Documenten
-name: drc
-type: application
-version: 0.0.1-rc1

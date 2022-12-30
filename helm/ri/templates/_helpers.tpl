@@ -42,7 +42,7 @@ app: postgis
   {{- else if eq .Values.global.config.environment "docker-desktop" -}}
     {{- $name = "hostpath" }}
   {{- else -}}
-    {{- $name = "unknownEnv" }}
+    {{- $name = "default" }}
   {{- end -}}
   {{- printf "%s" $name | trunc 63 | trimSuffix "-" }}
 {{- end -}}

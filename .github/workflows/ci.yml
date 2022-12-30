@@ -1,0 +1,39 @@
+name: ci
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+env:
+  CHART_NAME: ri-zgw
+  ENV: production
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 'pypy3.9'
+      - run: |
+          cd ./parser
+          pip install -r requirements.txt
+          python3 parser.py
+      - name: helm login
+        run: |
+          echo ${{ secrets.GHCR_TOKEN }} | helm registry login ghcr.io -u $ --password-stdin
+      - name: helm lint
+        run: |
+          helm lint ./helm/ri
+      - name: helm package
+        run: |
+          VERSION=$(echo "$GITHUB_REF_NAME" | sed 's/v//')
+          helm package ./helm/ri --version $VERSION
+      - name: helm push
+        if: ${{ github.event_name == 'push' }}
+        run: |
+          REPO_NAME=$(echo 'print("${{ github.repository_owner }}".lower())' | python3 -)
+          VERSION=$(echo "$GITHUB_REF_NAME" | sed 's/v//')
+          helm push $CHART_NAME-$VERSION.tgz oci://ghcr.io/$REPO_NAME

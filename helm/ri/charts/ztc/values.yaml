@@ -1,13 +1,9 @@
 config:
-  host: k8s-ztc-local.test,localhost,catalogi-api.vng.cloud,ztc
-  ingressHost: k8s-ztc-local.test
+  host: k8s-ztc-local.test,localhost,ztc
 cronjob:
   expression: 15 3 1 * *
-  run: true
 database:
   name: ztc
-job:
-  run: true
 replicas:
   max: 2
   min: 1

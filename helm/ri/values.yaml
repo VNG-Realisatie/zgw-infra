@@ -3,17 +3,20 @@ global:
     name: celery
     secretName: celery
   config:
-    certManager: true
-    enableTLS: true
+    certManager: false
+    createCronJobs: false
+    createJobs: true
+    createSecret: true
+    enableTLS: false
     environment: docker-desktop
-    kube: 1.25.2
+    kube: v1.25.2
     nginx: true
     pullPolicy: Always
   name: ri
   namespace: vng
   postgres:
     name: postgres
-    password: CHANGE_ME
+    password: 2IKIKZut2qfQQTvW7vuGhLKa
     password_key: password
     secretName: postgres
     service:
@@ -22,7 +25,7 @@ global:
     username: postgres
     username_key: username
   rabbitmq:
-    default_password: CHANGE_ME
+    default_password: CKTuPC6IFHPbpkG2QmnRQGmA
     default_user: nrc_root
     name: rabbitmq
     port: 5672
@@ -34,44 +37,42 @@ global:
     service:
       port: 6379
   secret_keys:
-    ac: CHANGE_ME
-    brc: CHANGE_ME
-    contactmomenten: CHANGE_ME
-    deploy: CHANGE_ME
-    drc: CHANGE_ME
-    kic: CHANGE_ME
-    klanten: CHANGE_ME
-    nrc: CHANGE_ME
-    tokens: CHANGE_ME
-    verzoeken: CHANGE_ME
-    vrl: CHANGE_ME
-    zrc: CHANGE_ME
-    ztc: CHANGE_ME
+    ac: f)bi_psz#340i1l9$4qx1%-(ey68e0rk5+p*7hxa97lgn-t6v0
+    brc: b8*_$%pv@f0$65j60ah)-y&&oc2rcb3*g-r#)#ept0rq7$7swy
+    contactmomenten: g)s2z#6k+*f001lhvnk_l39p+888yw8!ga@h(=peto$!x$-ex&
+    deploy: +hkf^!l^+ljzg&yk3+n2n6bgm9$pe7vn-ql($!(ckoro^xdh6l
+    drc: b+7ke396w#@=pkj3@628eds6r9gpgvgh@v+27y-4c_ry#1py-0
+    kic: d2-82p5@*1sjjg-k5u3277t_wmi$_q@=3%izo+poy^@h0yrney
+    klanten: '!pe5=zkrbi2&j&ph8$pi+%0e8%34n^v7@wtk=+dllsrjhjgv50'
+    nrc: nldiytq5a27c5#&e=2%8)dzyt69k%hx74(#m3ne%=-86p4!*on
+    verzoeken: 21-xyc9jw5^u@#-mf4&doh7s^vm^3tfj^^rl92+8b4_o#*hnjt
+    vrl: e+a!tt*twjx=&+)!!+so%w$(1(qk!yf4t^3@uckurshtf@!i2e
+    zrc: +hk)=f9%1h=721qp2^b(&$os0nwn@1y&iy6d2uv0-(_t6=mad=
+    ztc: (68gn(9d*v28__9(s54l&j51&#c31illbb^%ds&2+hovlav6*a
   sentry_dsn:
-    ac: CHANGE_ME
-    brc: CHANGE_ME
-    contactmomenten: CHANGE_ME
-    deploy: CHANGE_ME
-    drc: CHANGE_ME
-    kic: CHANGE_ME
-    klanten: CHANGE_ME
-    nrc: CHANGE_ME
-    tokens: CHANGE_ME
-    verzoeken: CHANGE_ME
-    vrl: CHANGE_ME
-    zrc: CHANGE_ME
-    ztc: CHANGE_ME
+    ac: https://public@sentry.example.com/1
+    brc: https://public@sentry.example.com/1
+    contactmomenten: https://public@sentry.example.com/1
+    deploy: https://public@sentry.example.com/1
+    drc: https://public@sentry.example.com/1
+    kic: https://public@sentry.example.com/1
+    klanten: https://public@sentry.example.com/1
+    nrc: https://public@sentry.example.com/1
+    verzoeken: https://public@sentry.example.com/1
+    vrl: https://public@sentry.example.com/1
+    zrc: https://public@sentry.example.com/1
+    ztc: https://public@sentry.example.com/1
   tokenIssuer:
     identifier: token-issuer-seeded
     identifierKey: identifierTokens
-    secret: CHANGE_ME
+    secret: Q5XPacyiUtpYieH4PBiyVP5b
     secretKey: secretTokens
     secretName: token-seeder
   tokenSeeder:
-    imageRepo: token-seeder
-    secret: CHANGE_ME
+    imageRepo: ghcr.io/vng-realisatie/token-seeder
+    secret: KcMtlWnyX40q5kRdWgBrCyyr
     secretKey: internalToken
-    tag: 0.1.0
+    tag: 0.0.2
 ingress:
   instance: zgw-stable
   name: ref-implementatie
@@ -79,37 +80,34 @@ ingress:
   - host: k8s-zrc-local.test
     name: zrc
     port: 8000
-  - host: documenten-api.vng.cloud
+  - host: k8s-drc-local.test
     name: drc
     port: 8000
-  - host: catalogi-api.vng.cloud
+  - host: k8s-ztc-local.test
     name: ztc
     port: 8000
-  - host: autorisaties-api.vng.cloud
+  - host: k8s-ac-local.test
     name: ac
     port: 8000
-  - host: besluiten-api.vng.cloud
+  - host: k8s-brc-local.test
     name: brc
     port: 8000
   - host: k8s-nrc-local.test
     name: nrc
     port: 8000
-  - host: klanten-api.vng.cloud
+  - host: k8s-klanten-local.test
     name: klanten
     port: 8000
-  - host: contactmomenten-api.vng.cloud
+  - host: k8s-contactmomenten-local.test
     name: contactmomenten
     port: 8000
-  - host: verzoeken-api.vng.cloud
+  - host: k8s-verzoeken-local.test
     name: verzoeken
     port: 8000
-  - host: referentielijsten-api.vng.cloud
+  - host: k8s-vrl-local.test
     name: vrl
     port: 8000
-  - host: zaakgerichtwerken.vng.cloud
-    name: docs
-    port: 80
-  - host: zaken-auth.vng.cloud
+  - host: k8s-tokens-local.test
     name: token-issuer
     port: 8000
 postgres:

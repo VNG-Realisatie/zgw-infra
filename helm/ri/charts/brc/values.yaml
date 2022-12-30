@@ -1,13 +1,9 @@
 config:
-  host: k8s-brc-local.test,localhost,besluiten-api.vng.cloud,brc
-  ingressHost: k8s-brc-local.test
+  host: k8s-brc-local.test,localhost,brc
 cronjob:
   expression: 15 3 1 * *
-  run: true
 database:
   name: brc
-job:
-  run: true
 replicas:
   max: 2
   min: 1

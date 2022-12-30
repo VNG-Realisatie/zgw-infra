@@ -1,13 +1,9 @@
 config:
-  host: k8s-contactmomenten-local.test,localhost,contactmomenten-api.test.vng.cloud,contactmomenten
-  ingressHost: k8s-contactmomenten-local.test
+  host: k8s-contactmomenten-local.test,localhost,contactmomenten
 cronjob:
   expression: 15 3 1 * *
-  run: true
 database:
   name: contactmomenten
-job:
-  run: true
 replicas:
   max: 2
   min: 1

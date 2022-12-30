@@ -1,13 +1,9 @@
 config:
-  host: k8s-nrc-local.test,localhost,zaken-api.vng.cloud,nrc
-  ingressHost: k8s-nrc-local.test
+  host: k8s-nrc-local.test,localhost,nrc
 cronjob:
   expression: 15 3 1 * *
-  run: true
 database:
   name: nrc
-job:
-  run: true
 replicas:
   max: 2
   min: 1

@@ -37,10 +37,11 @@ dependencies:
 description: Helm chart for referentie implementaties as part of API standards for
   local government
 home: https://gitlab.com/commonground/ri/infra
+icon: https://vng.nl/themes/custom/vng/logo.svg
 maintainers:
 - email: standaarden.ondersteuning@vng.nl
   name: VNG Realisatie
-name: ri
+name: ri-zgw
 sources:
 - https://github.com/VNG-Realisatie/gemma-zaken
 version: 0.0.1
