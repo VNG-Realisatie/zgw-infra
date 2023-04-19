@@ -1,7 +1,7 @@
 config:
   branch: ''
-  env: test
-  host: autorisaties-api.test.vng.cloud,localhost,ac,ac.zgw-test.svc.cluster.local
+  env: production
+  host: autorisaties-api.vng.cloud,localhost,ac,ac.zgw.svc.cluster.local
   pullPolicy: Always
 cronjob:
   expression: 15 3 1 * *

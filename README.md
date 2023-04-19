@@ -86,8 +86,8 @@ python3 parser.py
 Als je een nieuwe config hebt gemaakt met de parser kun je de helm chart installeren.
 
 ```shell
-cd ./helm/ri_zgw
-helm install ri_zgw .
+cd ./helm/ri-zgw
+helm install ri-zgw .
 ```
 
 Het duurt ongeveer 3 minuten voordat alle services up and running zijn. Grofweg zijn er aantal stappen die elke service doorgaat:
@@ -102,18 +102,18 @@ Doordat stap 2 faalt als er al een database bestaat (bijvoorbeeld bij een upgrad
 Bij een upgrade is het dus belangrijk de `createJobs` flag op `false` te zetten.
 
 ```shell
-cd ./helm/ri
+cd ./helm/ri-zgw
 helm install --set global.config.createJobs=false ri .
 ```
 
 Als de installatie wilt verwijderen kun je het volgende commando gebruiken:
 
 ```shell
-cd ./helm/ri
-helm delete ri
+cd ./helm/ri-zgw
+helm delete ri-zgw
 ```
 
-Al deze commando's zijn ook teurg te vinden in de `./helm/ri/Makefile`
+Al deze commando's zijn ook teurg te vinden in de `./helm/ri-zgw/Makefile`
 
 ## Productie
 
