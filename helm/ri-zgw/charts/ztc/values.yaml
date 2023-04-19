@@ -1,0 +1,20 @@
+config:
+  host: k8s-ztc-local.test,localhost,ztc,ztc.zgw.svc.cluster.local
+  pullPolicy: Always
+cronjob:
+  expression: 15 3 1 * *
+database:
+  name: ztc
+replicas:
+  max: 2
+  min: 1
+secret:
+  key: SECRET_KEY
+  name: ztc-secret
+  sentry: SENTRY_DSN
+service:
+  images:
+    imageRepo: ghcr.io/vng-realisatie/catalogi-api
+    tag: 1.3.0-rc3
+  name: ztc
+  port: 8000

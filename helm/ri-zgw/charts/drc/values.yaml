@@ -1,0 +1,20 @@
+config:
+  host: k8s-drc-local.test,localhost,drc,drc.zgw.svc.cluster.local
+  pullPolicy: Always
+cronjob:
+  expression: 15 3 1 * *
+database:
+  name: drc
+replicas:
+  max: 2
+  min: 1
+secret:
+  key: SECRET_KEY
+  name: drc-secret
+service:
+  images:
+    imageRepo: ghcr.io/vng-realisatie/documenten-api
+    tag: 1.2.3
+  minUploadSize: '4294967296'
+  name: drc
+  port: 8000
