@@ -4,9 +4,8 @@ metadata:
   name:  {{ .Values.global.postgres.name }}-pvc
   namespace: {{ .Values.global.namespace }}
 spec:
-  storageClassName: "{{ template "postgres.storageClassName" . }}"
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 10Gi

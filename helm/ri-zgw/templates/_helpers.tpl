@@ -41,7 +41,9 @@ app: postgis
     {{- $name = "standard" }}
   {{- else if eq .Values.global.config.environment "docker-desktop" -}}
     {{- $name = "hostpath" }}
-  {{- else -}}
+  {{- else if eq .Values.global.config.environment "test" -}}
+    {{- $name = "default" }}
+  {{- else if eq .Values.global.config.environment "production" -}}
     {{- $name = "default" }}
   {{- end -}}
   {{- printf "%s" $name | trunc 63 | trimSuffix "-" }}

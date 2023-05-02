@@ -1,5 +1,5 @@
 config:
-  host: k8s-vrl-local.test,localhost,vrl,vrl.zgw.svc.cluster.local
+  host: referentielijsten-api.test.vng.cloud,localhost,vrl,vrl.zgw-test.svc.cluster.local
   ingressHost: k8s-vrl-local.test
   pullPolicy: Always
 cronjob:

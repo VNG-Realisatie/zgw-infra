@@ -1,5 +1,5 @@
 config:
-  host: k8s-brc-local.test,localhost,brc,brc.zgw.svc.cluster.local
+  host: besluiten-api.test.vng.cloud,localhost,brc,brc.zgw-test.svc.cluster.local
   pullPolicy: Always
 cronjob:
   expression: 15 3 1 * *

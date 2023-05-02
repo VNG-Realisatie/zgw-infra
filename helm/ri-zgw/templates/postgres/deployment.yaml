@@ -34,6 +34,7 @@ spec:
           volumeMounts:
             - mountPath: "/var/lib/postgresql/data"
               name: postgis-pgdata
+              subPath: postgres
       volumes:
         - name: postgis-pgdata
           persistentVolumeClaim:

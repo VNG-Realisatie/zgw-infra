@@ -4,16 +4,16 @@ global:
     secretName: celery
   config:
     certManager: false
-    createCronJobs: false
+    createCronJobs: true
     createJobs: true
-    createSecret: true
-    enableTLS: false
-    environment: minikube
-    kube: v1.26.1
-    nginx: true
+    createSecret: false
+    enableTLS: true
+    environment: test
+    kube: 1.23.8
+    nginx: false
     pullPolicy: Always
   name: ri
-  namespace: zgw
+  namespace: zgw-test
   postgres:
     name: postgres
     password: HbPL0pG6hW6eDmfvSPmKVqIv
@@ -57,40 +57,31 @@ global:
     secretKey: internalToken
     tag: 0.0.5
 ingress:
-  instance: zgw-stable
+  instance: stable
   name: ref-implementatie
   services:
-  - host: k8s-zrc-local.test
+  - host: zaken-api.test.vng.cloud
     name: zrc
     port: 8000
-  - host: k8s-drc-local.test
+  - host: documenten-api.test.vng.cloud
     name: drc
     port: 8000
-  - host: k8s-ztc-local.test
+  - host: catalogi-api.test.vng.cloud
     name: ztc
     port: 8000
-  - host: k8s-ac-local.test
+  - host: autorisaties-api.test.vng.cloud
     name: ac
     port: 8000
-  - host: k8s-brc-local.test
+  - host: besluiten-api.test.vng.cloud
     name: brc
     port: 8000
-  - host: k8s-nrc-local.test
+  - host: notificaties-api.test.vng.cloud
     name: nrc
     port: 8000
-  - host: k8s-klanten-local.test
-    name: klanten
-    port: 8000
-  - host: k8s-contactmomenten-local.test
-    name: contactmomenten
-    port: 8000
-  - host: k8s-verzoeken-local.test
-    name: verzoeken
-    port: 8000
-  - host: k8s-vrl-local.test
+  - host: referentielijsten-api.test.vng.cloud
     name: vrl
     port: 8000
-  - host: k8s-tokens-local.test
+  - host: zaken-auth.test.vng.cloud
     name: token-issuer
     port: 8000
 postgres:
