@@ -200,6 +200,13 @@ def set_versions(env, cwd, helm_path, version):
                     host = f"{ingress_entry},localhost,{service_name},{internal_service_address}"
                     values["config"]["host"] = host
                     values["config"]["pullPolicy"] = "Never"
+                    try:
+                        if values["config"]["env"]:
+                            values["config"]["env"] = env
+                            if service_name == "token-issuer":
+                                values["config"]["env"] = "kubernetes"
+                    except KeyError:
+                        pass
                     for official_repo in vng_repos:
                         if official_repo in image_repo:
                             values["config"]["pullPolicy"] = "Always"

@@ -1,4 +1,5 @@
 config:
+  env: test
   host: zaken-api.test.vng.cloud,localhost,zrc,zrc.zgw-test.svc.cluster.local
   pullPolicy: Always
 cronjob:

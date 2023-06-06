@@ -86,8 +86,8 @@ python3 parser.py
 Als je een nieuwe config hebt gemaakt met de parser kun je de helm chart installeren.
 
 ```shell
-cd ./helm/ri
-helm install ri .
+cd ./helm/ri_zgw
+helm install ri_zgw .
 ```
 
 Het duurt ongeveer 3 minuten voordat alle services up and running zijn. Grofweg zijn er aantal stappen die elke service doorgaat:

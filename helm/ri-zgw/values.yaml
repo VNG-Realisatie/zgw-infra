@@ -16,7 +16,7 @@ global:
   namespace: zgw-test
   postgres:
     name: postgres
-    password: HbPL0pG6hW6eDmfvSPmKVqIv
+    password: PzuNFk93DNUnJrhHMBncC0hO
     password_key: password
     secretName: postgres
     service:
@@ -25,7 +25,7 @@ global:
     username: postgres
     username_key: username
   rabbitmq:
-    default_password: 82WE7gS8S7QGj1Hg6VSex6Zo
+    default_password: 3FR0haXkVhLK6sShrjncotsG
     default_user: nrc_root
     name: rabbitmq
     port: 5672
@@ -37,25 +37,25 @@ global:
     service:
       port: 6379
   secret_keys:
-    ac: ghuw!*n17r2_66k2&8ty0d)sile!gu78zaw8(x$b1%cmd$_e!s
-    brc: jwj72bv1d!-a!s=8)c0cw%vzt^nkz-)ph8gi=d-+2x4^^w79$#
-    drc: $ji8rxl#%$64@^u610=u@@$o3dm@d9v%9%2fv=629k^kk0l!@h
-    nrc: g@@17dew+&zxn2w@tke_ni#xduh**!bl%hp(68t4f4nq9n^v+f
-    zrc: busjadv=7pg5!d4oq6a0n%=^f9*s)vv0f_z@r9thm!5f_2!i11
-    ztc: fd^gn1ska(y(u30n=-3ad8540_4!9x1pgtwn521u63!ll^v41n
+    ac: r^ub8okbx3xp4&whkw+fb40&2d-6zhfjw_y+$bp6omy1cs%kd)
+    brc: '@zliaem%!vv3hwdu)rwym6snuo^^z31um+97tx+!wn(0n9maqw'
+    drc: '!q!n^@x*z+!e)+nl*mc%7$lewer9k3nz^c&%#i=s_kr^uurwb$'
+    nrc: rfkju(5czf-(cq4i7^^h$x+vjs6)c!l^+7i2e%7%3jc(^zflse
+    zrc: ozvbgfy1ga(2+p+3y6iaw(do(8mhh)^&9@%p$i-*jr^3n1hkfa
+    ztc: zdwb4$#l$#j)!bsjtw_bh)6@huqfzbb57s0690m9^oqypfrqtj
   tokenIssuer:
     identifier: token-issuer-seeded
     identifierKey: identifierTokens
-    secret: TvxAYQJJKugJpQvSdCm5JnMN
+    secret: iohpfrf17dlZw6NgrQMYAZfN
     secretKey: secretTokens
     secretName: token-seeder
   tokenSeeder:
     imagePullPolicy: Never
     imageRepo: ghcr.io/vng-realisatie/token-seeder
     pullPolicy: Always
-    secret: mIcgoLS7ANbK6Mvxrv8qfo4Q
+    secret: 8E3ErKf2IW1aODaai6sPluLz
     secretKey: internalToken
-    tag: 0.0.5
+    tag: 0.1.0
 ingress:
   instance: stable
   name: ref-implementatie

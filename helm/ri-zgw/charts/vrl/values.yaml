@@ -2,10 +2,6 @@ config:
   host: referentielijsten-api.test.vng.cloud,localhost,vrl,vrl.zgw-test.svc.cluster.local
   ingressHost: k8s-vrl-local.test
   pullPolicy: Always
-cronjob:
-  expression: 15 3 1 * *
-database:
-  name: vrl
 replicas:
   max: 2
   min: 1
@@ -15,6 +11,6 @@ secret:
 service:
   images:
     imageRepo: ghcr.io/vng-realisatie/referentielijsten-api
-    tag: 0.1.3
+    tag: 0.1.4
   name: vrl
   port: 8000

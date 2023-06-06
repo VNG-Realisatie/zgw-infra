@@ -1,4 +1,5 @@
 config:
+  env: test
   host: notificaties-api.test.vng.cloud,localhost,nrc,nrc.zgw-test.svc.cluster.local
   pullPolicy: Always
 cronjob:
