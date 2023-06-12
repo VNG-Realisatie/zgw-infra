@@ -1,0 +1,21 @@
+config:
+  env: test
+  host: documenten-api.test.vng.cloud,localhost,drc,drc.zgw-test.svc.cluster.local
+  pullPolicy: Always
+cronjob:
+  expression: 15 3 1 * *
+database:
+  name: drc
+replicas:
+  max: 2
+  min: 1
+secret:
+  key: SECRET_KEY
+  name: drc-secret
+service:
+  images:
+    imageRepo: ghcr.io/vng-realisatie/documenten-api
+    tag: pr-209
+  minUploadSize: '4294967296'
+  name: drc
+  port: 8000

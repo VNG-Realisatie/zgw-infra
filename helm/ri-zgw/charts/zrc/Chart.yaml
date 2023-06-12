@@ -1,0 +1,6 @@
+apiVersion: v2
+appVersion: pr-267
+description: gemma zaken
+name: zrc
+type: application
+version: v0.0.7

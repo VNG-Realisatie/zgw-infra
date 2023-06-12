@@ -1,0 +1,21 @@
+config:
+  branch: ''
+  env: test
+  host: autorisaties-api.test.vng.cloud,localhost,ac,ac.zgw-test.svc.cluster.local
+  pullPolicy: Always
+cronjob:
+  expression: 15 3 1 * *
+database:
+  name: ac
+replicas:
+  max: 2
+  min: 1
+secret:
+  key: SECRET_KEY
+  name: ac-secret
+service:
+  images:
+    imageRepo: ghcr.io/vng-realisatie/autorisaties-api
+    tag: 1.0.0
+  name: ac
+  port: 8000

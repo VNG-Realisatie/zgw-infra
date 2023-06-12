@@ -56,12 +56,12 @@ Hierna kun je aan de slag!
 
 ## Namespace
 
-Voor je de helm chart installeert is het nodig een namespace te maken. Deze staat standaard op `vng` maar is aan te passen in de `values.yaml`.
+Voor je de helm chart installeert is het nodig een namespace te maken. Deze staat standaard op `zgw` maar is aan te passen in de `values.yaml`.
 
 Onderstaand commando gaat uit van de standaard:
 
 ```shell
-kubectl create ns vng
+kubectl create ns zgw
 ```
 
 ## Parser
@@ -86,8 +86,8 @@ python3 parser.py
 Als je een nieuwe config hebt gemaakt met de parser kun je de helm chart installeren.
 
 ```shell
-cd ./helm/ri
-helm install ri .
+cd ./helm/ri_zgw
+helm install ri_zgw .
 ```
 
 Het duurt ongeveer 3 minuten voordat alle services up and running zijn. Grofweg zijn er aantal stappen die elke service doorgaat:

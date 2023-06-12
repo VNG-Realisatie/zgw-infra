@@ -1,0 +1,6 @@
+apiVersion: v2
+appVersion: pr-176
+description: gemma zaken
+name: ztc
+type: application
+version: v0.0.7
