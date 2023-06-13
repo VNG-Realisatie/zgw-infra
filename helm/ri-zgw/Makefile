@@ -17,6 +17,9 @@ helm_install:
 helm_upgrade:
 	helm upgrade --install ${HELM_CHART_NAME} --set global.config.createJobs=false .
 
+helm_install_first_time:
+	helm install ${HELM_CHART_NAME} --set global.config.createJobs=true .
+
 helm_delete:
 	helm delete ${HELM_CHART_NAME}
 

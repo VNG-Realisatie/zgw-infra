@@ -230,6 +230,13 @@ def set_versions(env, cwd, helm_path, version):
             with open(root_values, "r") as stream:
                 try:
                     values = yaml.load(stream, Loader=yaml.FullLoader)
+                    if api == "vrl":
+                        vrl_fixture = {'host': 'referentielijsten-api.vng.cloud', 'name': 'vrl', 'port': 8000}
+                        found = any(api in d.values() for d in values['ingress']['services'])
+                        if not found:
+                            if env == "test":
+                                break
+                            values["ingress"]["services"].append(vrl_fixture)
 
                     svc = next(
                         service
@@ -237,6 +244,9 @@ def set_versions(env, cwd, helm_path, version):
                         if service["name"] == api
                     )
                     svc["host"] = ingress_entry
+                    if api == "vrl" and env == "test":
+                        values["ingress"]["services"].remove(svc)
+
 
                     with open(root_values, "w") as write_path:
                         yaml.dump(values, write_path, sort_keys=True)

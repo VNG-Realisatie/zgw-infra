@@ -35,16 +35,16 @@ app: postgis
 {{- end }}
 
 
-{{- define "postgres.storageClassName" -}}
-  {{- $name := "test" }}
+{{- define "zgw.storageClassName" -}}
+  {{- $name := "default" }}
   {{- if eq .Values.global.config.environment "minikube" }}
     {{- $name = "standard" }}
   {{- else if eq .Values.global.config.environment "docker-desktop" -}}
     {{- $name = "hostpath" }}
   {{- else if eq .Values.global.config.environment "test" -}}
-    {{- $name = "default" }}
+    {{- $name = "managed-csi" }}
   {{- else if eq .Values.global.config.environment "production" -}}
-    {{- $name = "default" }}
+    {{- $name = "managed-csi" }}
   {{- end -}}
   {{- printf "%s" $name | trunc 63 | trimSuffix "-" }}
 {{- end -}}
