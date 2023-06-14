@@ -3,20 +3,20 @@ global:
     name: celery
     secretName: celery
   config:
-    certManager: false
-    createCronJobs: true
-    createJobs: true
+    certManager: true
+    createCronJobs: false
+    createJobs: false
     createSecret: false
     enableTLS: true
-    environment: test
+    environment: local
     kube: 1.23.8
     nginx: false
     pullPolicy: Always
   name: ri
-  namespace: zgw-test
+  namespace: zgw
   postgres:
     name: postgres
-    password: PzuNFk93DNUnJrhHMBncC0hO
+    password: Yw9hkQ5aRO6MoYwYjf7Z9he8
     password_key: password
     secretName: postgres
     service:
@@ -25,7 +25,7 @@ global:
     username: postgres
     username_key: username
   rabbitmq:
-    default_password: 3FR0haXkVhLK6sShrjncotsG
+    default_password: azyG1OxqABz502qaZQQikoVi
     default_user: nrc_root
     name: rabbitmq
     port: 5672
@@ -37,52 +37,52 @@ global:
     service:
       port: 6379
   secret_keys:
-    ac: r^ub8okbx3xp4&whkw+fb40&2d-6zhfjw_y+$bp6omy1cs%kd)
-    brc: '@zliaem%!vv3hwdu)rwym6snuo^^z31um+97tx+!wn(0n9maqw'
-    drc: '!q!n^@x*z+!e)+nl*mc%7$lewer9k3nz^c&%#i=s_kr^uurwb$'
-    nrc: rfkju(5czf-(cq4i7^^h$x+vjs6)c!l^+7i2e%7%3jc(^zflse
-    zrc: ozvbgfy1ga(2+p+3y6iaw(do(8mhh)^&9@%p$i-*jr^3n1hkfa
-    ztc: zdwb4$#l$#j)!bsjtw_bh)6@huqfzbb57s0690m9^oqypfrqtj
+    ac: p3-8*#$(!0_l(zw_&*3v0*(wbq^vt1)94(@j)dy2(4i#d0_@ba
+    brc: $86kpzn!5+0ur09o=#22^0xg(zam1bg0kb3%npoao9hgppo3l4
+    drc: e9qmzi)8&f!1l#o^@x^b^tkq#igipwjrsxn8&uc1=__k(zp-=y
+    nrc: sbp8fi%s=yhsuqp5@das0%ua)pz#o&)!gvj1=qbml#4i8oy_r0
+    zrc: )e(5^k#keqimw-6-t2zfx01ypjn*5(^n=!fo2uamx5#$nfk!5+
+    ztc: z8*(#*5#=7bqu4a3fk!ah@l*$-eq0&172m#x!&7#4ytus(@&=o
   tokenIssuer:
     identifier: token-issuer-seeded
     identifierKey: identifierTokens
-    secret: iohpfrf17dlZw6NgrQMYAZfN
+    secret: BK7KzfT4bJDgJ5Ydr3K4I91O
     secretKey: secretTokens
     secretName: token-seeder
   tokenSeeder:
     imagePullPolicy: Never
     imageRepo: ghcr.io/vng-realisatie/token-seeder
     pullPolicy: Always
-    secret: 8E3ErKf2IW1aODaai6sPluLz
+    secret: YGEYu6IHRgDkjFOTZd1gjuKF
     secretKey: internalToken
-    tag: 0.1.0
+    tag: 0.1.1
 ingress:
   instance: stable
   name: ref-implementatie
   services:
-  - host: zaken-api.test.vng.cloud
+  - host: zaken-api.vng.cloud
     name: zrc
     port: 8000
-  - host: documenten-api.test.vng.cloud
+  - host: documenten-api.vng.cloud
     name: drc
     port: 8000
-  - host: catalogi-api.test.vng.cloud
+  - host: catalogi-api.vng.cloud
     name: ztc
     port: 8000
-  - host: autorisaties-api.test.vng.cloud
+  - host: autorisaties-api.vng.cloud
     name: ac
     port: 8000
-  - host: besluiten-api.test.vng.cloud
+  - host: besluiten-api.vng.cloud
     name: brc
     port: 8000
-  - host: notificaties-api.test.vng.cloud
+  - host: notificaties-api.vng.cloud
     name: nrc
     port: 8000
-  - host: referentielijsten-api.test.vng.cloud
-    name: vrl
-    port: 8000
-  - host: zaken-auth.test.vng.cloud
+  - host: zaken-auth.vng.cloud
     name: token-issuer
+    port: 8000
+  - host: referentielijsten-api.vng.cloud
+    name: vrl
     port: 8000
 postgres:
   images:
