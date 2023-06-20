@@ -1,6 +1,6 @@
 config:
-  env: production
-  host: zaken-api.vng.cloud,localhost,zrc,zrc.zgw.svc.cluster.local
+  env: local
+  host: k8s-zrc-local.test,localhost,zrc,zrc.zgw.svc.cluster.local
   pullPolicy: Always
 cronjob:
   expression: 15 3 1 * *

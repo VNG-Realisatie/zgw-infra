@@ -156,7 +156,7 @@ def set_versions(env, cwd, helm_path, version):
 
         for api in env_file:
             try:
-                tag = env_file[api]["tag"]
+                tag = env_file[api][env]["tag"]
                 image_repo = env_file[api]["repo"].lower()
             except KeyError:
                 continue

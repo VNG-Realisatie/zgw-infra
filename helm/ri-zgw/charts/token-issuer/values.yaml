@@ -1,6 +1,6 @@
 config:
   env: kubernetes
-  host: zaken-auth.vng.cloud,localhost,token-issuer,token-issuer.zgw.svc.cluster.local
+  host: k8s-tokens-local.test,localhost,token-issuer,token-issuer.zgw.svc.cluster.local
   pullPolicy: Always
 replicas:
   max: 2

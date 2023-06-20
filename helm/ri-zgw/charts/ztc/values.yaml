@@ -1,7 +1,7 @@
 config:
-  env: production
-  host: catalogi-api.vng.cloud,localhost,ztc,ztc.zgw.svc.cluster.local
-  pullPolicy: Always
+  env: local
+  host: k8s-ztc-local.test,localhost,ztc,ztc.zgw.svc.cluster.local
+  pullPolicy: Never
 cronjob:
   expression: 15 3 1 * *
 database:
@@ -15,7 +15,7 @@ secret:
   sentry: SENTRY_DSN
 service:
   images:
-    imageRepo: ghcr.io/vng-realisatie/catalogi-api
-    tag: 1.2.1
+    imageRepo: ztc
+    tag: test4
   name: ztc
   port: 8000
