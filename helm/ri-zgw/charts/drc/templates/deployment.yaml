@@ -127,6 +127,8 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.secret.name }}
                   key: {{ .Values.secret.key }}
+            - name: REDIS_CACHE
+              value: "redis.zgw-test.svc.cluster.local:6379"
           volumeMounts:
             - name: private-storage
               mountPath: /app/private-media

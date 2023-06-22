@@ -123,6 +123,8 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.secret.name }}
                   key: {{ .Values.secret.key }}
+            - name: CACHE_DEFAULT
+              value: "redis.zgw-test.svc.cluster.local:6379"
           resources:
             requests:
               memory: "200Mi"
