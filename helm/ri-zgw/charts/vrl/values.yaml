@@ -1,5 +1,4 @@
 config:
-  host: referentielijsten-api.test.vng.cloud,localhost,vrl,vrl.zgw-test.svc.cluster.local
   ingressHost: k8s-vrl-local.test
   pullPolicy: Always
 replicas:

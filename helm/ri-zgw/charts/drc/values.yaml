@@ -1,4 +1,5 @@
 config:
+  baseAddress: https://documenten-api.test.vng.cloud
   env: test
   host: documenten-api.test.vng.cloud,localhost,drc,drc.zgw-test.svc.cluster.local
   pullPolicy: Always

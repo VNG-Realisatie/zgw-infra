@@ -5,18 +5,18 @@ global:
   config:
     certManager: true
     createCronJobs: false
-    createJobs: true
     createSecret: false
     enableTLS: true
     environment: test
     kube: 1.23.8
     nginx: false
+    notificationsDisabled: true
     pullPolicy: Always
   name: ri
   namespace: zgw-test
   postgres:
     name: postgres
-    password: fPJUdnNgSmKwfzE5ah0EexpG
+    password: NHXANoh3urGhNe939URUcRjt
     password_key: password
     secretName: postgres
     service:
@@ -25,7 +25,7 @@ global:
     username: postgres
     username_key: username
   rabbitmq:
-    default_password: ScW77ghcaWDtCHweZ8IzvhRI
+    default_password: l9jhDPEiP0zkmFoXolDDSKrU
     default_user: nrc_root
     name: rabbitmq
     port: 5672
@@ -37,23 +37,23 @@ global:
     service:
       port: 6379
   secret_keys:
-    ac: (gd^uf)rp0dd#b96-dv_!$qmu!$c0b(2i1mq%uuwox_r_g*io3
-    brc: pcw-5rqt0v#sw_@8m1(!b)mbgz62+&^kgw3%vr5m15g8bo@)h$
-    drc: fcdp-o4mmnkcq04^#9^mz(w4yqy9ykvgf7f$c6i3=*k1)mh!7*
-    nrc: nry%oi^#wcdjc78y80!kv#f&p=oxy^pdhgn=76+&)qm$1!)a79
-    zrc: 9qf@-6@lgm(-g&jyb)h_xqzi-v#)=s&+&xgw6n%bg%bva)%28m
-    ztc: jl5zy1e$bg_q_xg7j1nm%20$*6)pj486t_t!#9cus$rn_mm4_n
+    ac: 49epb-72e-mt+965&ecwt0#r*6wii4wx$3vw61!a%)&tozytgb
+    brc: t%r1cwfgz3bv12kz)#r3^6t!j24@)-76_f26^fe%oyat&h510m
+    drc: =(ms!jq=*5#euwv7xaq99guo))f1gy0dy^88)teug+mt*&=t-6
+    nrc: 0m$t8_@%hjs*_oqp*leixhd@#skmru91vdhou#u2_4$=hbz@v6
+    zrc: m#duu=ww9%cl-y+(oxa6n9ir0_ve#cqtqbaydendyqp9ez3-5c
+    ztc: _83%!2g9si(5sc!z7-9zjlc(6*sh0*+%7y@zu*u-5k9c!x$9zy
   tokenIssuer:
     identifier: token-issuer-seeded
     identifierKey: identifierTokens
-    secret: XkNH8mAVtFgyd4fHxCBxVCdn
+    secret: BAgCYETAJghqgtCUdebXOISB
     secretKey: secretTokens
     secretName: token-seeder
   tokenSeeder:
     imagePullPolicy: Never
     imageRepo: ghcr.io/vng-realisatie/token-seeder
     pullPolicy: Always
-    secret: 1wmQ6OuZ9PUV3EFLiBN3FuvA
+    secret: AuGOMHMjWoVUfNOvJcx3ETN7
     secretKey: internalToken
     tag: 0.1.1
 ingress:

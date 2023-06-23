@@ -198,8 +198,16 @@ def set_versions(env, cwd, helm_path, version):
                         f"{service_name}.{namespace}.svc.cluster.local"
                     )
                     host = f"{ingress_entry},localhost,{service_name},{internal_service_address}"
-                    values["config"]["host"] = host
+                    if service_name != "vrl":
+                        values["config"]["host"] = host
                     values["config"]["pullPolicy"] = "Never"
+                    protocol = "http://"
+                    if service_name != "vrl" and service_name != "token-issuer":
+                        if env == "test" or env == "production":
+                            protocol = "https://"
+                            values["config"]["baseAddress"] = f"{protocol}{ingress_entry}"
+                        else:
+                            values["config"]["baseAddress"] = f"{protocol}{internal_service_address}"
                     try:
                         if values["config"]["env"]:
                             values["config"]["env"] = env

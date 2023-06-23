@@ -1,0 +1,45 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: oci-repo
+  namespace: zgw
+spec:
+  interval: 5m
+  type: oci
+  url: oci://ghcr.io/vng-realisatie
+  secretRef:
+    name: ghcr-auth
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: zgw
+  namespace: zgw-test
+spec:
+  interval: 5m
+  targetNamespace: zgw-test
+  releaseName: zgw-test
+  chart:
+    spec:
+      chart: ri-zgw-test
+      sourceRef:
+        kind: HelmRepository
+        name: oci-repo
+        namespace: zgw
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: zgw
+  namespace: zgw
+spec:
+  interval: 5m
+  targetNamespace: zgw
+  releaseName: zgw
+  chart:
+    spec:
+      chart: ri-zgw
+      sourceRef:
+        kind: HelmRepository
+        name: oci-repo
+        namespace: zgw

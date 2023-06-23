@@ -1,4 +1,5 @@
 config:
+  baseAddress: https://catalogi-api.test.vng.cloud
   env: test
   host: catalogi-api.test.vng.cloud,localhost,ztc,ztc.zgw-test.svc.cluster.local
   pullPolicy: Always

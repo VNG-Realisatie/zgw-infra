@@ -1,4 +1,5 @@
 config:
+  baseAddress: https://besluiten-api.test.vng.cloud
   env: test
   host: besluiten-api.test.vng.cloud,localhost,brc,brc.zgw-test.svc.cluster.local
   pullPolicy: Always
