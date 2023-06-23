@@ -1,6 +1,6 @@
 config:
-  env: local
-  host: k8s-drc-local.test,localhost,drc,drc.zgw.svc.cluster.local
+  env: test
+  host: documenten-api.test.vng.cloud,localhost,drc,drc.zgw-test.svc.cluster.local
   pullPolicy: Always
 cronjob:
   expression: 15 3 1 * *

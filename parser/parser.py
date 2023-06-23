@@ -27,8 +27,6 @@ def get_version(env):
             # GITHUB_REF_NAME is the name of a release when using github
             branch = os.getenv("GITHUB_REF_NAME")
             stripped = branch
-        if stripped.startswith("v"):
-            stripped = stripped.split("v")[1]
 
     if env == "test":
         if stripped == "":
@@ -38,9 +36,11 @@ def get_version(env):
             semver = f"0.{version}.0"
             stripped = semver
 
+    if stripped.startswith("v"):
+        stripped = stripped.split("v")[1]
+
     if stripped == "":
         stripped = "0.0.1-local"
-    print(stripped)
 
     return stripped
 
@@ -327,16 +327,28 @@ def generate_secret_values(helm_path, encrypt_key):
 
 
 if __name__ == "__main__":
+    print(''' ________    ___________    __    ____       __    __   _______  __      .___  ___.        .______      ___      .______          _______. _______ .______      
+|       /   /  _____\   \  /  \  /   /      |  |  |  | |   ____||  |     |   \/   |        |   _  \    /   \     |   _  \        /       ||   ____||   _  \     
+`---/  /   |  |  __  \   \/    \/   / ______|  |__|  | |  |__   |  |     |  \  /  |  ______|  |_)  |  /  ^  \    |  |_)  |      |   (----`|  |__   |  |_)  |    
+   /  /    |  | |_ |  \            / |______|   __   | |   __|  |  |     |  |\/|  | |______|   ___/  /  /_\  \   |      /        \   \    |   __|  |      /     
+  /  /----.|  |__| |   \    /\    /         |  |  |  | |  |____ |  `----.|  |  |  |        |  |     /  _____  \  |  |\  \----.----)   |   |  |____ |  |\  \----.
+ /________| \______|    \__/  \__/          |__|  |__| |_______||_______||__|  |__|        | _|    /__/     \__\ | _| `._____|_______/    |_______|| _| `._____|''')
     env = os.getenv("ENV", "local")
+    print(f"parsing env set to: {env}")
+
     encrypt_key = os.getenv("ENCRYPT_KEY")
     cwd = os.getcwd()
     if cwd.split("/")[-1] != "parser":
         cwd = os.path.join(cwd, "parser")
 
     tagged_version = get_version(env)
+    print(f"version set to: {tagged_version}")
+
     helm_path = get_helm_path(cwd)
+    print(f"helm path set to: {helm_path}")
 
     if encrypt_key is not None:
+        print("encrypt_key set so only creating secrets")
         helm_path = get_secrets_path(cwd)
         generate_secret_values(helm_path, encrypt_key)
         exit(0)

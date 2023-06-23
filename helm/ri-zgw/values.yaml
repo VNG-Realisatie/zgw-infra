@@ -6,17 +6,17 @@ global:
     certManager: true
     createCronJobs: false
     createJobs: true
-    createSecret: true
-    enableTLS: false
-    environment: minikube
-    kube: v1.26.1
+    createSecret: false
+    enableTLS: true
+    environment: test
+    kube: 1.23.8
     nginx: false
     pullPolicy: Always
   name: ri
-  namespace: zgw
+  namespace: zgw-test
   postgres:
     name: postgres
-    password: hywKZ8i1RV1dC8iWRANSMREt
+    password: fPJUdnNgSmKwfzE5ah0EexpG
     password_key: password
     secretName: postgres
     service:
@@ -25,7 +25,7 @@ global:
     username: postgres
     username_key: username
   rabbitmq:
-    default_password: oAKvujJUJnx7Ktffizt5zf0E
+    default_password: ScW77ghcaWDtCHweZ8IzvhRI
     default_user: nrc_root
     name: rabbitmq
     port: 5672
@@ -37,52 +37,49 @@ global:
     service:
       port: 6379
   secret_keys:
-    ac: n&f3^v=#n(yn_&jgea1qy&hiq8hc^=9@$$h^08^ut!a1ivlvpr
-    brc: 7tt6m45#852%9&e9v*y!r#plbj%$9o@^moxf6%buse7xhh31d%
-    drc: bxh2x4tn5mt@zdktoec%r@5dbmznf-uh2fbes-jim$p%$o8$8v
-    nrc: spt5d&()yn6*wq$*ufsepmiob6wfp+5@%--e(og@j$-4mcqa1g
-    zrc: r#i6#%xt#5#d(d4o0o^x@%s507g+v7xbq6s3$ny=b-kj&&9+5e
-    ztc: m4$$4*n@cfp#bc^(g@&*@74@35&4xf&!c-5bsgxf^2q+v7-y*)
+    ac: (gd^uf)rp0dd#b96-dv_!$qmu!$c0b(2i1mq%uuwox_r_g*io3
+    brc: pcw-5rqt0v#sw_@8m1(!b)mbgz62+&^kgw3%vr5m15g8bo@)h$
+    drc: fcdp-o4mmnkcq04^#9^mz(w4yqy9ykvgf7f$c6i3=*k1)mh!7*
+    nrc: nry%oi^#wcdjc78y80!kv#f&p=oxy^pdhgn=76+&)qm$1!)a79
+    zrc: 9qf@-6@lgm(-g&jyb)h_xqzi-v#)=s&+&xgw6n%bg%bva)%28m
+    ztc: jl5zy1e$bg_q_xg7j1nm%20$*6)pj486t_t!#9cus$rn_mm4_n
   tokenIssuer:
     identifier: token-issuer-seeded
     identifierKey: identifierTokens
-    secret: i2r8h1ecJuQ5jLlaKUhzrZwo
+    secret: XkNH8mAVtFgyd4fHxCBxVCdn
     secretKey: secretTokens
     secretName: token-seeder
   tokenSeeder:
     imagePullPolicy: Never
     imageRepo: ghcr.io/vng-realisatie/token-seeder
     pullPolicy: Always
-    secret: fW8w1Lzo5WIgdkx6FA47dt4j
+    secret: 1wmQ6OuZ9PUV3EFLiBN3FuvA
     secretKey: internalToken
     tag: 0.1.1
 ingress:
   instance: stable
   name: ref-implementatie
   services:
-  - host: k8s-zrc-local.test
+  - host: zaken-api.test.vng.cloud
     name: zrc
     port: 8000
-  - host: k8s-drc-local.test
+  - host: documenten-api.test.vng.cloud
     name: drc
     port: 8000
-  - host: k8s-ztc-local.test
+  - host: catalogi-api.test.vng.cloud
     name: ztc
     port: 8000
-  - host: k8s-ac-local.test
+  - host: autorisaties-api.test.vng.cloud
     name: ac
     port: 8000
-  - host: k8s-brc-local.test
+  - host: besluiten-api.test.vng.cloud
     name: brc
     port: 8000
-  - host: k8s-nrc-local.test
+  - host: notificaties-api.test.vng.cloud
     name: nrc
     port: 8000
-  - host: k8s-tokens-local.test
+  - host: zaken-auth.test.vng.cloud
     name: token-issuer
-    port: 8000
-  - host: k8s-vrl-local.test
-    name: vrl
     port: 8000
 postgres:
   images:

@@ -1,6 +1,6 @@
 config:
-  env: local
-  host: k8s-nrc-local.test,localhost,nrc,nrc.zgw.svc.cluster.local
+  env: test
+  host: notificaties-api.test.vng.cloud,localhost,nrc,nrc.zgw-test.svc.cluster.local
   pullPolicy: Always
 cronjob:
   expression: 15 3 1 * *
