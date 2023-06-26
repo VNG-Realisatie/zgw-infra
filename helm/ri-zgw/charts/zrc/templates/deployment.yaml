@@ -131,7 +131,7 @@ spec:
             - name: ZRC_BASE_URL
               value: {{ .Values.config.baseAddress }}
             - name: CACHE_DEFAULT
-              value: {{ .Values.global.redis.name }}:{{ .Values.global.redis.service.port | quote }}
+              value: {{ .Values.global.redis.name }}:{{ .Values.global.redis.service.port }}
             - name: DJANGO_SETTINGS_MODULE
               value: {{.Values.service.name}}.conf.docker
             - name: ALLOWED_HOSTS

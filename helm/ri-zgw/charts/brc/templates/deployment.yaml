@@ -133,7 +133,7 @@ spec:
             - name: NOTIFICATIONS_DISABLED
               value: {{ .Values.global.config.notificationsDisabled | quote }}
             - name: REDIS_CACHE
-              value: {{ .Values.global.redis.name }}:{{ .Values.global.redis.service.port | quote }}
+              value: {{ .Values.global.redis.name }}:{{ .Values.global.redis.service.port }}
             - name: DJANGO_SETTINGS_MODULE
               value: {{.Values.service.name}}.conf.docker
             - name: ALLOWED_HOSTS
