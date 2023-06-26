@@ -28,6 +28,7 @@ jobs:
           helm lint ./helm/ri-zgw
       - name: helm package
         run: |
+          VERSION=$(echo "$GITHUB_REF_NAME" | sed 's/v//')
           helm package ./helm/ri-zgw --version $VERSION
       - name: helm push
         if: ${{ github.event_name == 'push' }}
