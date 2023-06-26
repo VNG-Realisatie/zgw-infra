@@ -1,4 +1,5 @@
 config:
+  baseAddress: https://autorisaties-api.test.vng.cloud
   branch: ''
   env: test
   host: autorisaties-api.test.vng.cloud,localhost,ac,ac.zgw-test.svc.cluster.local

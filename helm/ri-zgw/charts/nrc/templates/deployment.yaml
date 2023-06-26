@@ -21,6 +21,36 @@ spec:
         - name: wait-for-postgres
           image: busybox:1.31
           command: [ 'sh', '-c', 'echo -e "Checking for the availability of postgres deployment"; while ! nc -z postgres 5432; do sleep 1; printf "-"; done; echo -e "  >> POSTGRES has started";' ]
+        - name: {{ .Values.service.name }}-db-create
+          image: postgres:latest
+          command:
+            - bash
+            - -c
+            - |
+              if psql -lqt | cut -d \| -f 1 | grep -qw "$DB_NAME"; then
+                echo "Database '$DB_NAME' already exists"
+                exit 0
+              else
+                echo "Creating database '$DB_NAME'"
+                createdb $DB_NAME
+              fi
+          env:
+            - name: PGHOST
+              value: {{ .Values.global.postgres.service.host }}
+            - name: DB_NAME
+              value: {{ .Values.database.name }}
+            - name: PGPORT
+              value: {{.Values.global.postgres.service.port | quote }}
+            - name: PGUSER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.postgres.secretName }}
+                  key: {{ .Values.global.postgres.username_key }}
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.postgres.secretName }}
+                  key: {{ .Values.global.postgres.password_key }}
         - name: {{ .Values.service.name }}-init
           image: {{ .Values.service.images.imageRepo}}:{{ .Values.service.images.tag }}
           imagePullPolicy: {{ .Values.config.pullPolicy }}
@@ -98,6 +128,8 @@ spec:
           ports:
             - containerPort: {{ .Values.service.port }}
           env:
+            - name: NRC_BASE_URL
+              value: {{ .Values.config.baseAddress }}
             - name: DJANGO_SETTINGS_MODULE
               value: {{.Values.service.name}}.conf.docker
             - name: ALLOWED_HOSTS

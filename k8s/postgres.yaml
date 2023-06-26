@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name:  deployment-seeder
+spec:
+  containers:
+  - name: seeder
+    image: postgres:latest
+    command:
+      - bash
+      - -c
+      - |
+        if psql -lqt | cut -d \| -f 1 | grep -qw "$DBNAME"; then
+          echo "Database '$DBNAME' already exists"
+          exit 0
+        else
+          echo "Creating database '$DBNAME'"
+          createdb $DBNAME
+        fi
+    env:
+      - name: PGHOST
+        value: postgres
+      - name: DBNAME
+        value: lsiidjf54tg
+      - name: PGPORT
+        value: "5432"  # Adjust the port if necessary
+      - name: PGUSER
+        valueFrom:
+          secretKeyRef:
+            name: postgres
+            key: username
+      - name: PGPASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: postgres
+            key: password
+  restartPolicy: Never
