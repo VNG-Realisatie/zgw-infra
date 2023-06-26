@@ -158,6 +158,7 @@ def set_versions(env, cwd, helm_path, version):
             try:
                 tag = env_file[api][env]["tag"]
                 image_repo = env_file[api]["repo"].lower()
+                print(f"setting tag: {tag} for image: {image_repo}")
             except KeyError:
                 continue
 
@@ -243,7 +244,7 @@ def set_versions(env, cwd, helm_path, version):
                         found = any(api in d.values() for d in values['ingress']['services'])
                         if not found:
                             if env == "test":
-                                break
+                                continue
                             values["ingress"]["services"].append(vrl_fixture)
 
                     svc = next(
