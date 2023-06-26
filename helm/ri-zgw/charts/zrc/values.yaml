@@ -16,6 +16,6 @@ secret:
 service:
   images:
     imageRepo: ghcr.io/vng-realisatie/zaken-api
-    tag: pr-267
+    tag: sha-8b01b36
   name: zrc
   port: 8000
