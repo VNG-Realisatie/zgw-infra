@@ -174,3 +174,10 @@ minikube ip
 In je browser kun je nu de RI benaderen op bijvoorbeeld:
 
 `http://k8s-ac-local.test`
+
+## Secrets
+
+Het bewaken en uitrollen van secrets is altijd een uitdaging maar hier is gekozen voor `kubeseal`.
+Voor installatie zie:
+
+https://github.com/bitnami-labs/sealed-secrets#helm-chart

@@ -24,13 +24,13 @@ spec:
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.global.postgres.secretName }}
-                  key: {{ .Values.global.postgres.username_key }}
+                  name: {{ .Values.global.secrets.name }}
+                  key: {{ .Values.global.postgres.usernameKey }}
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.global.postgres.secretName }}
-                  key: {{ .Values.global.postgres.password_key }}
+                  name: {{ .Values.global.secrets.name }}
+                  key: {{ .Values.global.postgres.passwordKey }}
           volumeMounts:
             - mountPath: "/var/lib/postgresql/data"
               name: postgis-pgdata

@@ -26,12 +26,12 @@ spec:
             - name: TOKEN_ISSUER_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.global.tokenIssuer.secretName }}
+                  name: {{ .Values.global.secrets.name }}
                   key: {{ .Values.global.tokenIssuer.secretKey }}
             - name: TOKEN_ISSUER_IDENTIFIER
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.global.tokenIssuer.secretName }}
+                  name: {{ .Values.global.secrets.name }}
                   key: {{ .Values.global.tokenIssuer.identifierKey }}
             - name: ALLOWED_HOSTS
               value: {{ .Values.config.host }}
