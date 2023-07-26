@@ -5,82 +5,98 @@ global:
   config:
     certManager: true
     createCronJobs: false
-    createSecret: false
-    enableTLS: true
-    environment: test
-    kube: 1.23.8
+    createJobs: true
+    createSecret: true
+    enableTLS: false
+    environment: minikube
+    kube: v1.26.1
     nginx: false
     notificationsDisabled: true
     pullPolicy: Always
   name: ri
-  namespace: zgw-test
+  namespace: zgw
   postgres:
     name: postgres
-    password: NHXANoh3urGhNe939URUcRjt
-    password_key: password
-    secretName: postgres
+    password: J15h6guzfTsFIhzvIrgl5Vev
+    passwordKey: postgresPassword
     service:
       host: postgres
       port: 5432
-    username: postgres
-    username_key: username
+    usernameKey: postgresUsername
   rabbitmq:
-    default_password: l9jhDPEiP0zkmFoXolDDSKrU
-    default_user: nrc_root
+    defaultUser: nrc_root
+    default_password: 6mtj75qI12rQpoxJJegGfPAI
     name: rabbitmq
     port: 5672
-    secretName: rabbitmq
   redis:
     database: 7
     host: redis-test
     name: redis
     service:
       port: 6379
-  secret_keys:
-    ac: 49epb-72e-mt+965&ecwt0#r*6wii4wx$3vw61!a%)&tozytgb
-    brc: t%r1cwfgz3bv12kz)#r3^6t!j24@)-76_f26^fe%oyat&h510m
-    drc: =(ms!jq=*5#euwv7xaq99guo))f1gy0dy^88)teug+mt*&=t-6
-    nrc: 0m$t8_@%hjs*_oqp*leixhd@#skmru91vdhou#u2_4$=hbz@v6
-    zrc: m#duu=ww9%cl-y+(oxa6n9ir0_ve#cqtqbaydendyqp9ez3-5c
-    ztc: _83%!2g9si(5sc!z7-9zjlc(6*sh0*+%7y@zu*u-5k9c!x$9zy
+  secretKeys:
+    ac: qnppxegd=6jlr-n96!l5c2i9owil#95q9@3uyc^8@#wkjpybn^
+    brc: y^kb$#@ij!ndhl(9h-38!^ipt5spwict6o(sd)7zyuxlqx%s@x
+    drc: 8+y$poy&scsj9_j*rp@l69@=w=^!v$h)=y-1iy_n78i1wo0vk!
+    nrc: +$n=!nx^ssddef41gluccyo!u(!mx9uux4*e8^$)ql$^^9$!(_
+    zrc: tfm@p$de2!kd88ygh(8o2%3tsawdlsg&4(dk3wyeh42oltg&#r
+    ztc: '!b*4g7j@b)*@qs$rds9%&ske#w@rd-2rlx!0!a7d3gm@a=-o%!'
+  secrets:
+    data:
+      brokerUrl: amqp://nrc_root:F9X88AndmgIF6QlhKuUyU6pv@rabbitmq:5672//
+      defaultAdminEmail: admin@test.nl
+      defaultAdminPassword: notthepassword
+      defaultAdminUser: admin
+      postgresPassword: r3TXPOMXI5DQIcfOb94EXdra
+      psotgresUsername: postgres
+      publishBrokerUrl: amqp://nrc_root:F9X88AndmgIF6QlhKuUyU6pv@rabbitmq:5672/%2F
+      rabbitmqDefaultDefaultUser: nrc_root
+      rabbitmqDefaultPassword: F9X88AndmgIF6QlhKuUyU6pv
+      resultBackend: amqp://nrc_root:F9X88AndmgIF6QlhKuUyU6pv@rabbitmq-nc:5672//
+      tokenIssuerIdentifier: token-issuer-seeded
+      tokenIssuerSecret: cLjYcy44IB3wlXNf0XE2T7o8
+      tokenSeederSecret: QsJC17crCKio4iSCvZntmHSN
+    name: zgw-secrets
   tokenIssuer:
-    identifier: token-issuer-seeded
-    identifierKey: identifierTokens
-    secret: BAgCYETAJghqgtCUdebXOISB
-    secretKey: secretTokens
-    secretName: token-seeder
+    identifierKey: tokenIssuerIdentifier
+    secret: swBccNjw22sFvhHA0D7D5xQB
+    secretKey: tokenIssuerSecret
   tokenSeeder:
     imagePullPolicy: Never
     imageRepo: ghcr.io/vng-realisatie/token-seeder
     pullPolicy: Always
-    secret: AuGOMHMjWoVUfNOvJcx3ETN7
-    secretKey: internalToken
+    secret: HENp8b4FvIsU6QJfulUS4Jdj
+    secretKey: tokenSeederSecret
     tag: 0.1.1
 ingress:
   instance: stable
   name: ref-implementatie
   services:
-  - host: zaken-api.test.vng.cloud
+  - host: k8s-zrc-local.test
     name: zrc
     port: 8000
-  - host: documenten-api.test.vng.cloud
+  - host: k8s-drc-local.test
     name: drc
     port: 8000
-  - host: catalogi-api.test.vng.cloud
+  - host: k8s-ztc-local.test
     name: ztc
     port: 8000
-  - host: autorisaties-api.test.vng.cloud
+  - host: k8s-ac-local.test
     name: ac
     port: 8000
-  - host: besluiten-api.test.vng.cloud
+  - host: k8s-brc-local.test
     name: brc
     port: 8000
-  - host: notificaties-api.test.vng.cloud
+  - host: k8s-nrc-local.test
     name: nrc
     port: 8000
-  - host: zaken-auth.test.vng.cloud
+  - host: k8s-tokens-local.test
     name: token-issuer
     port: 8000
+  - host: k8s-vrl-local.test
+    name: vrl
+    port: 8000
+namespace: zgw
 postgres:
   images:
     imageRepo: mdillon/postgis
@@ -94,17 +110,11 @@ services:
     enabled: true
   brc:
     enabled: true
-  contactmomenten:
-    enabled: true
   drc:
-    enabled: true
-  klanten:
     enabled: true
   nrc:
     enabled: true
   token-issuer:
-    enabled: true
-  verzoeken:
     enabled: true
   vrl:
     enabled: true

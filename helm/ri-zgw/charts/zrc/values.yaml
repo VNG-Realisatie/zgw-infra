@@ -1,7 +1,7 @@
 config:
-  baseAddress: https://zaken-api.test.vng.cloud
-  env: test
-  host: zaken-api.test.vng.cloud,localhost,zrc,zrc.zgw-test.svc.cluster.local
+  baseAddress: http://zrc.zgw.svc.cluster.local
+  env: local
+  host: k8s-zrc-local.test,localhost,zrc,zrc.zgw.svc.cluster.local
   pullPolicy: Always
 cronjob:
   expression: 15 3 1 * *
@@ -16,6 +16,6 @@ secret:
 service:
   images:
     imageRepo: ghcr.io/vng-realisatie/zaken-api
-    tag: sha-8b01b36
+    tag: pr-267
   name: zrc
   port: 8000

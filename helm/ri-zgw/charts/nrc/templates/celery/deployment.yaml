@@ -40,31 +40,26 @@ spec:
           - name: DB_USER
             valueFrom:
               secretKeyRef:
-                name: {{ .Values.global.postgres.secretName }}
-                key: {{ .Values.global.postgres.username_key }}
+                name: {{ .Values.global.secrets.name }}
+                key: {{ .Values.global.postgres.usernameKey }}
           - name: DB_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: {{ .Values.global.postgres.secretName }}
-                key: {{ .Values.global.postgres.password_key }}
-          - name: {{ .Values.secret.key }}
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.secret.name }}
-                key: {{ .Values.secret.key }}
+                name: {{ .Values.global.secrets.name }}
+                key: {{ .Values.global.postgres.passwordKey }}
           - name: PUBLISH_BROKER_URL
             valueFrom:
               secretKeyRef:
-                name: {{ .Values.global.celery.secretName  }}
-                key: publish_broker_url
+                name: {{ .Values.global.secrets.name  }}
+                key: publishBrokerUrl
           - name: CELERY_BROKER_URL
             valueFrom:
               secretKeyRef:
-                name: {{ .Values.global.celery.secretName  }}
-                key: broker_url
+                name: {{ .Values.global.secrets.name  }}
+                key: brokerUrl
           - name: CELERY_RESULT_BACKEND
             valueFrom:
               secretKeyRef:
-                name: {{ .Values.global.celery.secretName  }}
-                key: result_backend
+                name: {{ .Values.global.secrets.name  }}
+                key: resultBackend
         command: ["/celery_worker.sh"]

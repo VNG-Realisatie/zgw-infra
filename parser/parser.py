@@ -140,10 +140,6 @@ def set_versions(env, cwd, helm_path, version):
                             values["global"]["config"]["environment"] = kube_context
                             values["global"]["config"]["kube"] = kube_version
 
-                            for api in values["global"]["secret_keys"]:
-                                random_key = utils.get_random_secret_key()
-                                values["global"]["secret_keys"][api] = random_key
-
                         else:
                             values["global"]["config"]["kube"] = fixed_prod_kube_version
                             values["global"]["config"]["environment"] = env
@@ -265,7 +261,7 @@ def set_versions(env, cwd, helm_path, version):
     return
 
 
-def generate_secret_values(helm_path, encrypt_key):
+def generate_secret_values(helm_path):
     """
     Will set secrets and version for secret helm chart
 
@@ -275,63 +271,40 @@ def generate_secret_values(helm_path, encrypt_key):
 
     namespace = os.getenv("NAMESPACE", "zgw")
 
-    values_name = "values-secret-overwrite.yaml"
-    encrypted_overwrite_values = os.path.join(helm_path, values_name)
-    echo = subprocess.Popen(("echo", encrypt_key), stdout=subprocess.PIPE)
-    subprocess.check_output(
-        (
-            "gpg",
-            "-d",
-            "--batch",
-            "--yes",
-            "--passphrase-fd",
-            "0",
-            "--output",
-            encrypted_overwrite_values,
-            f"{encrypted_overwrite_values}.gpg",
-        ),
-        stdin=echo.stdout,
-    )
-    echo.wait()
+    values_name = "values.yaml"
+    values_overwrite = os.path.join(helm_path, values_name)
 
-    with open(encrypted_overwrite_values, "r") as stream:
+    with open(values_overwrite, "r") as stream:
         try:
             values = yaml.load(stream, Loader=yaml.FullLoader)
-            for api in values["secret_keys"]:
+            for api in values["global"]["secretKeys"]:
                 random_key = utils.get_random_secret_key()
-                values["secret_keys"][api] = random_key
+                values["global"]["secretKeys"][api] = random_key
             postgres_password = create_random_string(24)
-            values["postgres"]["password"] = postgres_password
+            values["global"]["secrets"]["data"]["postgresPassword"] = postgres_password
             rabbit_password = create_random_string(24)
-            values["rabbitmq"]["default_password"] = rabbit_password
+            values["global"]["secrets"]["data"]["rabbitmqDefaultPassword"] = rabbit_password
             token_issuer = create_random_string(24)
-            values["tokenIssuer"]["secret"] = token_issuer
+            values["global"]["secrets"]["data"]["tokenIssuerSecret"] = token_issuer
             token_seeder = create_random_string(24)
-            values["tokenSeeder"]["secret"] = token_seeder
+            values["global"]["secrets"]["data"]["tokenSeederSecret"] = token_seeder
 
-            print(token_seeder)
+            rabbit_name = values["global"]["rabbitmq"]["name"]
+            rabbit_port = values["global"]["rabbitmq"]["port"]
+            rabbit_user = values["global"]["rabbitmq"]["defaultUser"]
+
+            values["global"]["secrets"]["data"]["brokerUrl"] = f"amqp://{rabbit_user}:{rabbit_password}@{rabbit_name}:{rabbit_port}//"
+            values["global"]["secrets"]["data"]["publishBrokerUrl"] = f"amqp://{rabbit_user}:{rabbit_password}@{rabbit_name}:{rabbit_port}/%2F"
+            values["global"]["secrets"]["data"]["resultBackend"] = f"amqp://{rabbit_user}:{rabbit_password}@{rabbit_name}-nc:{rabbit_port}//"
+
             values["namespace"] = namespace
 
-            with open(encrypted_overwrite_values, "w") as write_path:
+            with open(values_overwrite, "w") as write_path:
                 yaml.dump(values, write_path, sort_keys=True)
 
         except yaml.YAMLError as exc:
             print(exc)
 
-    echo = subprocess.Popen(("echo", encrypt_key), stdout=subprocess.PIPE)
-    subprocess.check_output(
-        (
-            "gpg",
-            "-c",
-            "--batch",
-            "--yes",
-            "--passphrase-fd",
-            "0",
-            encrypted_overwrite_values,
-        ),
-        stdin=echo.stdout,
-    )
-    echo.wait()
     return
 
 
@@ -345,7 +318,6 @@ if __name__ == "__main__":
     env = os.getenv("ENV", "local")
     print(f"parsing env set to: {env}")
 
-    encrypt_key = os.getenv("ENCRYPT_KEY")
     cwd = os.getcwd()
     if cwd.split("/")[-1] != "parser":
         cwd = os.path.join(cwd, "parser")
@@ -356,10 +328,6 @@ if __name__ == "__main__":
     helm_path = get_helm_path(cwd)
     print(f"helm path set to: {helm_path}")
 
-    if encrypt_key is not None:
-        print("encrypt_key set so only creating secrets")
-        helm_path = get_secrets_path(cwd)
-        generate_secret_values(helm_path, encrypt_key)
-        exit(0)
+    generate_secret_values(helm_path)
 
     set_versions(env=env, cwd=cwd, helm_path=helm_path, version=tagged_version)

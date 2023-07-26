@@ -44,13 +44,13 @@ spec:
             - name: PGUSER
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.global.postgres.secretName }}
-                  key: {{ .Values.global.postgres.username_key }}
+                  name: {{ .Values.global.secrets.name }}
+                  key: {{ .Values.global.postgres.usernameKey }}
             - name: PGPASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.global.postgres.secretName }}
-                  key: {{ .Values.global.postgres.password_key }}
+                  name: {{ .Values.global.secrets.name }}
+                  key: {{ .Values.global.postgres.passwordKey }}
         - name: {{ .Values.service.name }}-init
           image: {{ .Values.service.images.imageRepo}}:{{ .Values.service.images.tag }}
           imagePullPolicy: {{ .Values.config.pullPolicy }}
@@ -68,18 +68,18 @@ spec:
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.global.postgres.secretName }}
-                  key: {{ .Values.global.postgres.username_key }}
+                  name: {{ .Values.global.secrets.name }}
+                  key: {{ .Values.global.postgres.usernameKey }}
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.global.postgres.secretName }}
-                  key: {{ .Values.global.postgres.password_key }}
-            - name: {{ .Values.secret.key }}
+                  name: {{ .Values.global.secrets.name }}
+                  key: {{ .Values.global.postgres.passwordKey }}
+            - name: SECRET_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secret.name }}
-                  key: {{ .Values.secret.key }}
+                  name: {{ .Values.global.secrets.name }}
+                  key: secret-{{ .Values.service.name }}
           command: ['sh', '-c', "python3 /app/src/manage.py migrate"]
         - name: {{ .Values.service.name }}-seeder
           image: {{ .Values.global.tokenSeeder.imageRepo}}:{{ .Values.global.tokenSeeder.tag }}
@@ -95,31 +95,31 @@ spec:
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.global.postgres.secretName }}
-                  key: {{ .Values.global.postgres.username_key }}
+                  name: {{ .Values.global.secrets.name }}
+                  key: {{ .Values.global.postgres.usernameKey }}
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.secrets.name }}
+                  key: {{ .Values.global.postgres.passwordKey }}
             - name: NAMESPACE
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.global.postgres.secretName }}
-                  key: {{ .Values.global.postgres.password_key }}
             - name: TOKEN_ISSUER_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.global.tokenIssuer.secretName }}
+                  name: {{ .Values.global.secrets.name }}
                   key: {{ .Values.global.tokenIssuer.secretKey }}
             - name: TOKEN_ISSUER_NAME
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.global.tokenIssuer.secretName }}
+                  name: {{ .Values.global.secrets.name }}
                   key: {{ .Values.global.tokenIssuer.identifierKey }}
             - name: INTERNAL_API_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.global.tokenIssuer.secretName }}
+                  name: {{ .Values.global.secrets.name }}
                   key: {{ .Values.global.tokenSeeder.secretKey }}
       containers:
         - name: {{ .Values.service.name }}
@@ -141,18 +141,18 @@ spec:
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.global.postgres.secretName }}
-                  key: {{ .Values.global.postgres.username_key }}
+                  name: {{ .Values.global.secrets.name }}
+                  key: {{ .Values.global.postgres.usernameKey }}
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.global.postgres.secretName }}
-                  key: {{ .Values.global.postgres.password_key }}
-            - name: {{ .Values.secret.key }}
+                  name: {{ .Values.global.secrets.name }}
+                  key: {{ .Values.global.postgres.passwordKey }}
+            - name: SECRET_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secret.name }}
-                  key: {{ .Values.secret.key }}
+                  name: {{ .Values.global.secrets.name }}
+                  key: secret-{{ .Values.service.name }}
             - name: SELF_BRANCH
               value: {{ .Values.config.branch }}
           resources:

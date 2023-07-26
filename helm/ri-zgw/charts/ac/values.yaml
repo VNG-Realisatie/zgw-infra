@@ -1,8 +1,8 @@
 config:
-  baseAddress: https://autorisaties-api.test.vng.cloud
+  baseAddress: http://ac.zgw.svc.cluster.local
   branch: ''
-  env: test
-  host: autorisaties-api.test.vng.cloud,localhost,ac,ac.zgw-test.svc.cluster.local
+  env: local
+  host: k8s-ac-local.test,localhost,ac,ac.zgw.svc.cluster.local
   pullPolicy: Always
 cronjob:
   expression: 15 3 1 * *

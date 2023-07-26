@@ -32,7 +32,7 @@ icon: https://vng.nl/themes/custom/vng/logo.svg
 maintainers:
 - email: standaarden.ondersteuning@vng.nl
   name: VNG Realisatie
-name: ri-zgw-test
+name: ri-zgw
 sources:
 - https://github.com/VNG-Realisatie/gemma-zaken
 version: 0.0.9
