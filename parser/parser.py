@@ -273,6 +273,7 @@ def generate_secret_values(helm_path):
 
     values_name = "values.yaml"
     values_overwrite = os.path.join(helm_path, values_name)
+    print("creating new secret values - only needed for local")
 
     with open(values_overwrite, "r") as stream:
         try:
