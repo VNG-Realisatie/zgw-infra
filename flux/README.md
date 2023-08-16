@@ -51,3 +51,7 @@ De public key kan in `github` komen. Omdat deze in het cluster leeft en eventuee
 ```shell
 ./update_pubkey.sh
 ```
+
+Het kan zijn dat bij een redeploy van het gehele cluster het nodig is de waarde een update te geven. 
+Hou er rekening mee dat alles in github ook naar gitlab moet (https://gitlab.com/commonground/haven/internal/configuration/-/tree/master/flux/azure-common-prod/zgw).
+Dat is helaas een consequentie van het gebruik van github.
