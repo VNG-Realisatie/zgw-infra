@@ -44,11 +44,11 @@ global:
   secrets:
     data:
       brokerUrl: amqp://nrc_root:F9X88AndmgIF6QlhKuUyU6pv@rabbitmq:5672//
-      defaultAdminEmail: admin@test.nl
+      defaultAdminEmail: standaarden.ondersteuning@vng.nl
       defaultAdminPassword: notthepassword
       defaultAdminUser: admin
       postgresPassword: r3TXPOMXI5DQIcfOb94EXdra
-      psotgresUsername: postgres
+      postgresUsername: postgres
       publishBrokerUrl: amqp://nrc_root:F9X88AndmgIF6QlhKuUyU6pv@rabbitmq:5672/%2F
       rabbitmqDefaultDefaultUser: nrc_root
       rabbitmqDefaultPassword: F9X88AndmgIF6QlhKuUyU6pv
