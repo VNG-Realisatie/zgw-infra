@@ -5,7 +5,6 @@ global:
   config:
     certManager: true
     createCronJobs: false
-    createJobs: true
     createSecret: true
     enableTLS: false
     environment: minikube
@@ -17,7 +16,7 @@ global:
   namespace: zgw
   postgres:
     name: postgres
-    password: J15h6guzfTsFIhzvIrgl5Vev
+    password: auCz6cVYsxMq7sFPVzmzXRj7
     passwordKey: postgresPassword
     service:
       host: postgres
@@ -25,7 +24,7 @@ global:
     usernameKey: postgresUsername
   rabbitmq:
     defaultUser: nrc_root
-    default_password: 6mtj75qI12rQpoxJJegGfPAI
+    default_password: Rcf4vzrCKOYErl3VDr1h21AM
     name: rabbitmq
     port: 5672
   redis:
@@ -35,12 +34,12 @@ global:
     service:
       port: 6379
   secretKeys:
-    ac: qnppxegd=6jlr-n96!l5c2i9owil#95q9@3uyc^8@#wkjpybn^
-    brc: y^kb$#@ij!ndhl(9h-38!^ipt5spwict6o(sd)7zyuxlqx%s@x
-    drc: 8+y$poy&scsj9_j*rp@l69@=w=^!v$h)=y-1iy_n78i1wo0vk!
-    nrc: +$n=!nx^ssddef41gluccyo!u(!mx9uux4*e8^$)ql$^^9$!(_
-    zrc: tfm@p$de2!kd88ygh(8o2%3tsawdlsg&4(dk3wyeh42oltg&#r
-    ztc: '!b*4g7j@b)*@qs$rds9%&ske#w@rd-2rlx!0!a7d3gm@a=-o%!'
+    ac: =ljzsa6vv76#-o39sq%zmx8l_lz32)hardh)=a40lrdw6@1sj$
+    brc: t%@n#t^%w%s)n53$xz=d@^4+_ftz0m67bv8vqb&$+p%6p8f_!j
+    drc: _ev%6ws!@m=h%g+uz9e6*cch1mko4uwhx5$)yq@j&&9r6!$k9=
+    nrc: eldhsyl91d8^2w1)d9+v0@^dc2c#ehtg(e1%1g2b$sw-9lp3s8
+    zrc: ^ooeqct+60*ndexmivrma1*%zi&l-v+c#0d2voq+))a+s1f$f!
+    ztc: '*opg=hly*2#o=k2x9_ii1rpq)0qo$1k%)o5k*37-0#lh=27@s%'
   secrets:
     data:
       brokerUrl: amqp://nrc_root:F9X88AndmgIF6QlhKuUyU6pv@rabbitmq:5672//
@@ -51,21 +50,21 @@ global:
       postgresUsername: postgres
       publishBrokerUrl: amqp://nrc_root:F9X88AndmgIF6QlhKuUyU6pv@rabbitmq:5672/%2F
       rabbitmqDefaultDefaultUser: nrc_root
-      rabbitmqDefaultPassword: F9X88AndmgIF6QlhKuUyU6pv
-      resultBackend: amqp://nrc_root:F9X88AndmgIF6QlhKuUyU6pv@rabbitmq-nc:5672//
+      rabbitmqDefaultPassword: TqzmrbCIzpEJtOtfYHC6XbLI
+      resultBackend: amqp://nrc_root:TqzmrbCIzpEJtOtfYHC6XbLI@rabbitmq-nc:5672//
       tokenIssuerIdentifier: token-issuer-seeded
-      tokenIssuerSecret: cLjYcy44IB3wlXNf0XE2T7o8
-      tokenSeederSecret: QsJC17crCKio4iSCvZntmHSN
+      tokenIssuerSecret: 4lUYRWrfN13GUevfPT0E7AgS
+      tokenSeederSecret: qJUj64uleyVASR5fJy9nhTf0
     name: zgw-secrets
   tokenIssuer:
     identifierKey: tokenIssuerIdentifier
-    secret: swBccNjw22sFvhHA0D7D5xQB
+    secret: Ue76bqdBzgi0NWXPYCn2Rba7
     secretKey: tokenIssuerSecret
   tokenSeeder:
     imagePullPolicy: Never
     imageRepo: ghcr.io/vng-realisatie/token-seeder
     pullPolicy: Always
-    secret: HENp8b4FvIsU6QJfulUS4Jdj
+    secret: n3jEp4QbVtFItpgcQnMOXJUJ
     secretKey: tokenSeederSecret
     tag: 0.1.1
 ingress:

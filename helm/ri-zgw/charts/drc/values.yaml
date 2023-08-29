@@ -16,7 +16,7 @@ secret:
 service:
   images:
     imageRepo: ghcr.io/vng-realisatie/documenten-api
-    tag: pr-209
+    tag: 1.4.0
   minUploadSize: '4294967296'
   name: drc
   port: 8000

@@ -1,6 +1,7 @@
 config:
   baseAddress: http://zrc.zgw.svc.cluster.local
   env: local
+  githubApiSpec: https://raw.githubusercontent.com/VNG-Realisatie/gemma-zaken/master/api-specificatie/zrc/current_version/openapi.yaml
   host: k8s-zrc-local.test,localhost,zrc,zrc.zgw.svc.cluster.local
   pullPolicy: Always
 cronjob:
@@ -16,6 +17,6 @@ secret:
 service:
   images:
     imageRepo: ghcr.io/vng-realisatie/zaken-api
-    tag: pr-267
+    tag: 1.5.0
   name: zrc
   port: 8000
