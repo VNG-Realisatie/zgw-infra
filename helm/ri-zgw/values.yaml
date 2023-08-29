@@ -42,13 +42,13 @@ global:
     ztc: '*opg=hly*2#o=k2x9_ii1rpq)0qo$1k%)o5k*37-0#lh=27@s%'
   secrets:
     data:
-      brokerUrl: amqp://nrc_root:TqzmrbCIzpEJtOtfYHC6XbLI@rabbitmq:5672//
-      defaultAdminEmail: admin@test.nl
+      brokerUrl: amqp://nrc_root:F9X88AndmgIF6QlhKuUyU6pv@rabbitmq:5672//
+      defaultAdminEmail: standaarden.ondersteuning@vng.nl
       defaultAdminPassword: notthepassword
       defaultAdminUser: admin
-      postgresPassword: CEGSkNY3naeXs0ZIEh5dbyNz
+      postgresPassword: r3TXPOMXI5DQIcfOb94EXdra
       postgresUsername: postgres
-      publishBrokerUrl: amqp://nrc_root:TqzmrbCIzpEJtOtfYHC6XbLI@rabbitmq:5672/%2F
+      publishBrokerUrl: amqp://nrc_root:F9X88AndmgIF6QlhKuUyU6pv@rabbitmq:5672/%2F
       rabbitmqDefaultDefaultUser: nrc_root
       rabbitmqDefaultPassword: TqzmrbCIzpEJtOtfYHC6XbLI
       resultBackend: amqp://nrc_root:TqzmrbCIzpEJtOtfYHC6XbLI@rabbitmq-nc:5672//

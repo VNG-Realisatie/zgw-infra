@@ -121,6 +121,43 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.global.secrets.name }}
                   key: {{ .Values.global.tokenSeeder.secretKey }}
+        - name: {{ .Values.service.name }}-admin
+          image: {{ .Values.service.images.imageRepo}}:{{ .Values.service.images.tag }}
+          imagePullPolicy: {{ .Values.config.pullPolicy }}
+          env:
+            - name: DJANGO_SETTINGS_MODULE
+              value: {{.Values.service.name}}.conf.docker
+            - name: ALLOWED_HOSTS
+              value: {{ .Values.config.host }}
+            - name: DB_NAME
+              value: {{ .Values.database.name }}
+            - name: DB_HOST
+              value: {{ .Values.global.postgres.name }}
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.secrets.name }}
+                  key: {{ .Values.global.postgres.usernameKey }}
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.secrets.name }}
+                  key: {{ .Values.global.postgres.passwordKey }}
+            - name: DJANGO_SUPERUSER_USER
+              value: {{ .Values.global.secrets.data.defaultAdminUser }}
+            - name: DJANGO_SUPERUSER_EMAIL
+              value: {{ .Values.global.secrets.data.defaultAdminEmail }}
+            - name: DJANGO_SUPERUSER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.secrets.name }}
+                  key: defaultAdminPassword
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.secrets.name }}
+                  key: secret-{{ .Values.service.name }}
+          command: ['sh', '-c', 'python3 /app/src/manage.py createsuperuser --no-input --username=$DJANGO_SUPERUSER_USER && echo "Superuser created successfully" || echo "Superuser creation skipped - user already exists"']
       containers:
         - name: {{ .Values.service.name }}
           image: {{ .Values.service.images.imageRepo}}:{{ .Values.service.images.tag }}
