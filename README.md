@@ -77,7 +77,7 @@ minikube ip
 eval $(minikube docker-env)
 ```
 
-Deze commando's starten een minikube cluster met docker en hyperkit. Er zijn veel varaianten mogelijk dus dit dient louter als voorbeeld.
+Deze commando's starten een minikube cluster met docker en hyperkit. Er zijn veel varianten mogelijk dus dit dient louter als voorbeeld.
 Zie bijvoorbeeld [minkube](https://minikube.sigs.k8s.io/docs/start/).
 
 Zorg dat je ingress activeert en het ip-adres van minikube opvraagt (minikube draait immers in een virtuele machine met een eigen IP).
@@ -106,7 +106,13 @@ De `env.yaml` wordt gebruikt om een configuratie te laden. Standaard wordt `loca
 export ENV=production
 ```
 
-te zetten. Of eventueel mee te geven in PyCharm. Daarna is het eenvoudig een kwestie van:
+te zetten. Of eventueel mee te geven in PyCharm. Laat deze variable echter weg voor lokaal of zet hem expliciet op local:
+
+```shell
+export ENV=local
+```
+
+Daarna is het eenvoudig een kwestie van:
 
 ```shell
 cd ./parser
@@ -137,6 +143,27 @@ helm delete ri-zgw
 ```
 
 Al deze commando's zijn ook teurg te vinden in de `./helm/ri-zgw/Makefile`
+
+### OCI image
+
+Het is ook mogelijk om direct een test of productie image te draaien. Zoals hieronder beschreven gebruiken we `OCI` voor het opslaan de `helm charts`.
+
+#### Test
+```shell
+helm install ri-zgw oci://ghcr.io/vng-realisatie/ri-zgw-test --version 0.0.29 --set global.config.createSecret=true --set global.namespace=zgw
+```
+
+[versies](https://github.com/VNG-Realisatie/zgw-infra/pkgs/container/ri-zgw-test)
+
+#### Prod
+```shell
+helm install ri-zgw oci://ghcr.io/vng-realisatie/ri-zgw --version 0.1.1 --set global.config.createSecret=true
+```
+
+[versies](https://github.com/VNG-Realisatie/zgw-infra/pkgs/container/ri-zgw)
+
+
+Het is belangrijk dat je de regel `--set global.config.createSecret=true` laat staan. Lokaal bestaan de secrets niet en in de prod en test helm charts bestaan deze juist wel.
 
 ### ImageTags
 

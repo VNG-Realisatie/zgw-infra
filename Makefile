@@ -11,4 +11,11 @@ tag_image:
 minikube_load:
 	minikube image load local/${project_name}:${tag}
 
+clean_pvc:
+	kubectl delete pvc drc-private-media
+	kubectl delete pvc postgres-pvc
+
+delete_secret:
+	kubectl delete secret zgw-secrets
+
 build_and_load: build_image tag_image minikube_load

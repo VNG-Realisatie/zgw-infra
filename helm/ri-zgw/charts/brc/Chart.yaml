@@ -1,6 +1,6 @@
 apiVersion: v2
-appVersion: 1.0.1.post0
+appVersion: 1.0.2
 description: gemma zaken
 name: brc
 type: application
-version: 0.0.9
+version: 0.1.0

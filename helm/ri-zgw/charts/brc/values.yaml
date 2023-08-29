@@ -16,6 +16,6 @@ secret:
 service:
   images:
     imageRepo: ghcr.io/vng-realisatie/besluiten-api
-    tag: 1.0.1.post0
+    tag: 1.0.2
   name: brc
   port: 8000

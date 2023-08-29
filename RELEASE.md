@@ -7,7 +7,7 @@
    2. catalogi-api
    3. documenten-api
    4. besluiten-api
-2. Zorg ervoor dat je je branch verwijdert na de merge. Dit gebeurt niet meer automatisch zodat we niet elke keer onze `develop` branch verwijderen.
+2. Zorg ervoor dat je je branch verwijdert na de merge. Dit gebeurt niet meer automatisch zodat we niet elke keer onze `develop` of `master` branch verwijderen.
 3. Wanneer alle code naar `develop` is gemerged `pull` je de laatste changes van develop en maak je een `bump` branch
    + `bump/v*.*.*` naar develop.
 4. Op deze branch maak je de benodigde wijzingen voor een productie release:
@@ -24,10 +24,13 @@
 5. Merge de `bump/v*.*.*` naar develop
 6. Maak een merge request van `develop` naar `master`/`main` met titel: `Production release to version v*.*.*`
 7. Na een approval kun je deze branch naar `master`/`main` mergen. Let op dat je de develop branch niet verwijdert.
-8. Maak nu een release aan vanaf master via github (v1.0.2)
+8. Maak nu een release aan vanaf master via de github UI (1.0.2). Het is beter om de versie zonder v op te nemen of 2 releaes te maken met en zonder v. Hiermee zorg je ervoor dat de links naar redoc blijven werken.
 9. Hierna wordt een productie image gebouwd. Je kunt dit via `packages` controleren. Als de nieuwe versie er staat ga dan naar de volgende stap.
 10. Maak een branch voor de release aan in `zgw-infra` en pas de images in `./parser/env.yaml` aan. Doe dit voor `productie` `test` en `local`
-11. Maak een PR aan voor deze branch maar master (`zgw-infra`)
-12. Na goedkeuren wordt er een test helm chart gepushed en gedeployed op de test omgeving
-13. Wanneer alles op main staat kun je een release maken voor de helm chart en deze wordt dan automatisch gedeployed
-14. En klaar!
+11. Maak een PR aan voor deze branch maar `main` (`zgw-infra`)
+12. Na goedkeuren wordt er een test helm chart gepushed en gedeployed op de test omgeving. Hier kun je de POSTMAN tests tegenaan draaien om te controleren dat alles goed is gegaan.
+13. Wanneer alles op main staat kun je een release maken voor de helm chart (dit kan via de github UI) en deze wordt dan automatisch gedeployed
+
+## Proces
+
+![Release](release.drawio.png)

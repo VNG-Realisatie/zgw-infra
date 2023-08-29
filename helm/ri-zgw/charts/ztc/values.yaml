@@ -17,6 +17,6 @@ secret:
 service:
   images:
     imageRepo: ghcr.io/vng-realisatie/catalogi-api
-    tag: pr-176
+    tag: 1.3.0
   name: ztc
   port: 8000
