@@ -71,3 +71,11 @@ spec:
             initialDelaySeconds: 10
             periodSeconds: 30
             failureThreshold: 5
+          volumeMounts:  # Add these volume mounts
+            - name: tls-secret
+              mountPath: /etc/certs
+
+      volumes:  # Add this volume definition
+        - name: tls-secret
+          secret:
+            secretName: token-issuer-tls

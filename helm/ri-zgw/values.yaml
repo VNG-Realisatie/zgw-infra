@@ -5,10 +5,11 @@ global:
   config:
     certManager: true
     createCronJobs: false
+    createJobs: true
     createSecret: true
     enableTLS: false
-    environment: minikube
-    kube: v1.26.1
+    environment: pinniped-azure-common-prod
+    kube: v1.26.3
     nginx: false
     notificationsDisabled: true
     pullPolicy: Always
@@ -16,7 +17,7 @@ global:
   namespace: zgw
   postgres:
     name: postgres
-    password: auCz6cVYsxMq7sFPVzmzXRj7
+    password: AeaKtiIebmtY5tA56XfbsTjC
     passwordKey: postgresPassword
     service:
       host: postgres
@@ -24,7 +25,7 @@ global:
     usernameKey: postgresUsername
   rabbitmq:
     defaultUser: nrc_root
-    default_password: Rcf4vzrCKOYErl3VDr1h21AM
+    default_password: IqoaiZePwOcOcRY0DUDAPlHL
     name: rabbitmq
     port: 5672
   redis:
@@ -34,37 +35,37 @@ global:
     service:
       port: 6379
   secretKeys:
-    ac: =ljzsa6vv76#-o39sq%zmx8l_lz32)hardh)=a40lrdw6@1sj$
-    brc: t%@n#t^%w%s)n53$xz=d@^4+_ftz0m67bv8vqb&$+p%6p8f_!j
-    drc: _ev%6ws!@m=h%g+uz9e6*cch1mko4uwhx5$)yq@j&&9r6!$k9=
-    nrc: eldhsyl91d8^2w1)d9+v0@^dc2c#ehtg(e1%1g2b$sw-9lp3s8
-    zrc: ^ooeqct+60*ndexmivrma1*%zi&l-v+c#0d2voq+))a+s1f$f!
-    ztc: '*opg=hly*2#o=k2x9_ii1rpq)0qo$1k%)o5k*37-0#lh=27@s%'
+    ac: 6l6(fqmu1rf6(uwq=y3+kz%gp#zo%4_kvidn^pgs4szc!x$odg
+    brc: _pkti%q-i-44*+!4=sa2dv(5)#)v^ss)hlu=f7r_#ph%l6+edf
+    drc: 2&6#6c5ccsimg8@adhy-4#gorqns78=ar0@xg7#6s%8k#w(91*
+    nrc: jlyb^u1_v12^d#t7o_^n7o0x-7l^2i8c11_2$8dn9vi-!b!8!h
+    zrc: a4@#!#q-&62cgie53p$*i6rb$o8%cm+)=_8ks#9==(+8)ja!#)
+    ztc: '&zp$!63^tqe&9v5ej!_lundq@r((=zm5v^-zc%7eqxgtr7hs3)'
   secrets:
     data:
-      brokerUrl: amqp://nrc_root:F9X88AndmgIF6QlhKuUyU6pv@rabbitmq:5672//
+      brokerUrl: amqp://nrc_root:4zhXdemdlCxuonJyerfDBjwk@rabbitmq:5672//
       defaultAdminEmail: standaarden.ondersteuning@vng.nl
       defaultAdminPassword: notthepassword
       defaultAdminUser: admin
-      postgresPassword: r3TXPOMXI5DQIcfOb94EXdra
+      postgresPassword: 4AHTFjdovEtLlB9g4TPKnJnX
       postgresUsername: postgres
-      publishBrokerUrl: amqp://nrc_root:F9X88AndmgIF6QlhKuUyU6pv@rabbitmq:5672/%2F
+      publishBrokerUrl: amqp://nrc_root:4zhXdemdlCxuonJyerfDBjwk@rabbitmq:5672/%2F
       rabbitmqDefaultDefaultUser: nrc_root
-      rabbitmqDefaultPassword: TqzmrbCIzpEJtOtfYHC6XbLI
-      resultBackend: amqp://nrc_root:TqzmrbCIzpEJtOtfYHC6XbLI@rabbitmq-nc:5672//
+      rabbitmqDefaultPassword: 4zhXdemdlCxuonJyerfDBjwk
+      resultBackend: amqp://nrc_root:4zhXdemdlCxuonJyerfDBjwk@rabbitmq-nc:5672//
       tokenIssuerIdentifier: token-issuer-seeded
-      tokenIssuerSecret: 4lUYRWrfN13GUevfPT0E7AgS
-      tokenSeederSecret: qJUj64uleyVASR5fJy9nhTf0
+      tokenIssuerSecret: afD7pmu4xg0HM44fAunXIprv
+      tokenSeederSecret: FN950JhTx44UuSh79PeFitFz
     name: zgw-secrets
   tokenIssuer:
     identifierKey: tokenIssuerIdentifier
-    secret: Ue76bqdBzgi0NWXPYCn2Rba7
+    secret: 2Fzbwl1KnTVgXBRm3NdDRmaf
     secretKey: tokenIssuerSecret
   tokenSeeder:
     imagePullPolicy: Never
     imageRepo: ghcr.io/vng-realisatie/token-seeder
     pullPolicy: Always
-    secret: n3jEp4QbVtFItpgcQnMOXJUJ
+    secret: 3uTXWfVH5PqfCa407qEmZMiR
     secretKey: tokenSeederSecret
     tag: 0.1.1
 ingress:
