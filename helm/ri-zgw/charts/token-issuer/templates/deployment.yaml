@@ -58,8 +58,8 @@ spec:
               path: /api/v1/status/
               port: {{ .Values.service.port }}
             initialDelaySeconds: 10
-            periodSeconds: 10
-            failureThreshold: 6
+            periodSeconds: 20
+            failureThreshold: 10
           livenessProbe:
             httpGet:
               scheme: HTTP
@@ -69,5 +69,5 @@ spec:
               path: /api/v1/status/
               port: {{ .Values.service.port }}
             initialDelaySeconds: 10
-            periodSeconds: 30
-            failureThreshold: 5
+            periodSeconds: 60
+            failureThreshold: 10
