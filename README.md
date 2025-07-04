@@ -1,3 +1,8 @@
+| Eigenaar | Ingevuld door |
+| --- | --- |
+| Kennis centrum Architectuur | Rutger ter Borg |
+<hr/>
+
 # ZGW Infra
 
 | Key       | Value                                         |
